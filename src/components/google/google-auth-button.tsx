@@ -18,7 +18,11 @@ function GoogleAuthButton() {
       <Button
         startIcon={
           profile.name ? (
-            <Avatar alt={profile.name} src={profile.photo} />
+            <Avatar
+              alt={profile.name}
+              src={profile.photo}
+              sx={{ width: 24, height: 24 }}
+            />
           ) : (
             <Google />
           )

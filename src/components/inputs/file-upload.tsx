@@ -34,7 +34,6 @@ export default function InputFileUpload({
 }: InputFileUploadProps) {
   return (
     <Button
-      variant="contained"
       component="label"
       role={undefined}
       tabIndex={-1}
