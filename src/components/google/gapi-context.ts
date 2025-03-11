@@ -5,14 +5,14 @@ export type Profile = {
   photo?: string;
 };
 
-export const GapiContext = createContext<{
+export const ProfileContext = createContext<Profile>({});
+
+export const AuthContext = createContext<{
   authenticate: undefined | (() => void);
-  profile: Profile;
   refresh: () => void;
   logout: () => void;
 }>({
   authenticate: undefined,
-  profile: {},
   refresh: () => {},
   logout: () => {},
 });

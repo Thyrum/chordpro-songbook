@@ -1,7 +1,6 @@
 import { Google } from "@mui/icons-material";
 import { TokenResponse } from "@react-oauth/google";
 import { useContext, useState } from "react";
-import { GapiContext } from "./gapi-context";
 import {
   Button,
   Avatar,
@@ -12,6 +11,7 @@ import {
   MenuItem,
   Typography,
 } from "@mui/material";
+import { AuthContext, ProfileContext } from "./gapi-context";
 
 export type Error = Pick<
   TokenResponse,
@@ -19,7 +19,8 @@ export type Error = Pick<
 >;
 
 function GoogleAuthButton() {
-  const { authenticate, profile, logout } = useContext(GapiContext);
+  const { authenticate, logout } = useContext(AuthContext);
+  const profile = useContext(ProfileContext);
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 

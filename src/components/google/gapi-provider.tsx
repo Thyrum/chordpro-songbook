@@ -1,6 +1,6 @@
-import { useState, useEffect, ReactNode } from "react";
+import { useState, useEffect, ReactNode, useCallback, memo } from "react";
 import { GOOGLE_AUTH_CLIENT_ID } from "../../env-config";
-import { GapiContext, Profile } from "./gapi-context";
+import { AuthContext, Profile, ProfileContext } from "./gapi-context";
 import { useLocalStorage } from "usehooks-ts";
 
 export function GapiProvider({ children }: { children: ReactNode }) {
@@ -62,22 +62,23 @@ export function GapiProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <GapiContext.Provider
+    <AuthContext.Provider
       value={{
-        authenticate: () => client?.requestAccessToken(),
-        profile,
-        refresh: () => {
+        authenticate: useCallback(() => client?.requestAccessToken(), [client]),
+        refresh: useCallback(() => {
           if (accessToken !== undefined) client?.requestAccessToken();
-        },
-        logout: () => {
+        }, [client, accessToken]),
+        logout: useCallback(() => {
           if (accessToken !== undefined) {
             setAccessToken(undefined);
             setProfile({});
           }
-        },
+        }, [accessToken, setAccessToken, setProfile]),
       }}
     >
-      {children}
-    </GapiContext.Provider>
+      <ProfileContext.Provider value={profile}>
+        {children}
+      </ProfileContext.Provider>
+    </AuthContext.Provider>
   );
 }
