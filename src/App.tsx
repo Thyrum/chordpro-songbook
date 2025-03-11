@@ -5,7 +5,6 @@ import {
   CssBaseline,
   TextField,
   ThemeProvider,
-  Typography,
 } from "@mui/material";
 import NavigationLayout from "./components/layout/navigation";
 
@@ -28,6 +27,19 @@ function App() {
             onChange={(e) => setText(e.target.value)}
             value={text}
             multiline
+            sx={{ height: "100%" }}
+            slotProps={{
+              input: {
+                sx: {
+                  height: "100%",
+                  alignItems: "start",
+                },
+              },
+            }}
+            onBlur={() => {
+              console.log("OnBlurred");
+            }}
+            fullWidth
           />
         </NavigationLayout>
       </GapiProvider>

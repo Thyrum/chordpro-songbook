@@ -72,7 +72,7 @@ function NavigationLayout({ children }: { children: ReactNode }) {
   );
 
   return (
-    <Box sx={{ display: "flex" }}>
+    <Box sx={{ display: "flex", minHeight: "100%" }}>
       <AppBar
         position="fixed"
         sx={{
@@ -104,15 +104,23 @@ function NavigationLayout({ children }: { children: ReactNode }) {
         {drawer}
       </Box>
       <Box
-        component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
           width: { md: `calc(100% - ${drawerWidth}px)` },
+          display: "flex",
+          flexDirection: "column",
         }}
       >
-        <Toolbar />
-        {children}
+        <Toolbar sx={{ flexGrow: 0 }} />
+        <Box
+          component="main"
+          sx={{
+            p: 3,
+            flexGrow: 1,
+          }}
+        >
+          {children}
+        </Box>
       </Box>
     </Box>
   );
