@@ -1,8 +1,17 @@
 import { Google } from "@mui/icons-material";
 import { TokenResponse } from "@react-oauth/google";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { GapiContext } from "./gapi-context";
-import { Button, Avatar } from "@mui/material";
+import {
+  Button,
+  Avatar,
+  IconButton,
+  Tooltip,
+  Box,
+  Menu,
+  MenuItem,
+  Typography,
+} from "@mui/material";
 
 export type Error = Pick<
   TokenResponse,
@@ -10,36 +19,60 @@ export type Error = Pick<
 >;
 
 function GoogleAuthButton() {
-  const { authenticate, profile } = useContext(GapiContext);
+  const { authenticate, profile, logout } = useContext(GapiContext);
+
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
 
   console.log(profile);
   return (
     <>
-      <Button
-        startIcon={
-          profile.name ? (
-            <Avatar
-              alt={profile.name}
-              src={profile.photo}
-              sx={{ width: 24, height: 24 }}
-            />
-          ) : (
-            <Google />
-          )
-        }
-        onClick={authenticate}
-      >
-        {profile.name ?? "Sync with Google"}
-      </Button>
-      {/* <Snackbar */}
-      {/*   color="danger" */}
-      {/*   autoHideDuration={5000} */}
-      {/*   open={error !== undefined} */}
-      {/*   onClose={() => setError(undefined)} */}
-      {/*   startDecorator={<ErrorOutlined />} */}
-      {/* > */}
-      {/*   {error} */}
-      {/* </Snackbar> */}
+      {profile.name && (
+        <Box>
+          <Tooltip title="Open settings">
+            <IconButton onClick={handleOpenUserMenu}>
+              <Avatar alt={profile.name} src={profile.photo} />
+            </IconButton>
+          </Tooltip>
+          <Menu
+            sx={{ mt: "45px" }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: "top",
+              horizontal: "right",
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            <MenuItem
+              onClick={() => {
+                handleCloseUserMenu();
+                logout();
+              }}
+            >
+              <Typography sx={{ textAlign: "center" }}>Logout</Typography>
+            </MenuItem>
+          </Menu>
+        </Box>
+      )}
+      {!profile.name && (
+        <Button endIcon={<Google />} onClick={authenticate} variant="contained">
+          Sign in
+        </Button>
+      )}
     </>
   );
 }

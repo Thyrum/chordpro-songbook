@@ -1,4 +1,3 @@
-import "./App.css";
 import { useLocalStorage } from "usehooks-ts";
 import { GapiProvider } from "./components/google/gapi-provider";
 import {
@@ -8,7 +7,7 @@ import {
   ThemeProvider,
   Typography,
 } from "@mui/material";
-import TopBar from "./components/layout/topbar";
+import NavigationLayout from "./components/layout/navigation";
 
 const theme = createTheme({
   colorSchemes: {
@@ -23,14 +22,14 @@ function App() {
     <ThemeProvider theme={theme} noSsr>
       <CssBaseline />
       <GapiProvider>
-        <TopBar />
-        <Typography variant="h1">Chordpro Songbook</Typography>
-        <TextField
-          variant="outlined"
-          onChange={(e) => setText(e.target.value)}
-          value={text}
-          multiline
-        />
+        <NavigationLayout>
+          <TextField
+            variant="outlined"
+            onChange={(e) => setText(e.target.value)}
+            value={text}
+            multiline
+          />
+        </NavigationLayout>
       </GapiProvider>
     </ThemeProvider>
   );

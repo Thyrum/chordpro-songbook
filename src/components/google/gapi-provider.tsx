@@ -69,6 +69,12 @@ export function GapiProvider({ children }: { children: ReactNode }) {
         refresh: () => {
           if (accessToken !== undefined) client?.requestAccessToken();
         },
+        logout: () => {
+          if (accessToken !== undefined) {
+            setAccessToken(undefined);
+            setProfile({});
+          }
+        },
       }}
     >
       {children}

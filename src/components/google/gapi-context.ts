@@ -9,4 +9,10 @@ export const GapiContext = createContext<{
   authenticate: undefined | (() => void);
   profile: Profile;
   refresh: () => void;
-}>({ authenticate: undefined, profile: {}, refresh: () => {} });
+  logout: () => void;
+}>({
+  authenticate: undefined,
+  profile: {},
+  refresh: () => {},
+  logout: () => {},
+});
