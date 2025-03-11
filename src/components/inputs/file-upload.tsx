@@ -1,6 +1,5 @@
-import Button, { ButtonProps } from "@mui/joy/Button";
-import { styled } from "@mui/joy";
 import { UploadFileOutlined } from "@mui/icons-material";
+import { Button, ButtonProps, styled } from "@mui/material";
 import React from "react";
 
 const VisuallyHiddenInput = styled("input")`
@@ -35,10 +34,11 @@ export default function InputFileUpload({
 }: InputFileUploadProps) {
   return (
     <Button
+      variant="contained"
       component="label"
       role={undefined}
       tabIndex={-1}
-      startDecorator={icon}
+      startIcon={icon}
       {...props}
     >
       {text}

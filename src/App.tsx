@@ -1,28 +1,38 @@
 import "./App.css";
-import { Textarea, Typography } from "@mui/joy";
 import { useLocalStorage } from "usehooks-ts";
 import Toolbar from "./components/layout/toolbar";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import { GoogleProfile } from './components/google/profile';
+import { GapiProvider } from "./components/google/gapi-provider";
+import {
+  createTheme,
+  CssBaseline,
+  TextField,
+  ThemeProvider,
+  Typography,
+} from "@mui/material";
+
+const theme = createTheme({
+  colorSchemes: {
+    dark: true,
+  },
+});
 
 function App() {
   const [text, setText] = useLocalStorage("songbook", "");
 
   return (
-    <>
-      <GoogleOAuthProvider
-        clientId={import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID}
-      >
+    <ThemeProvider theme={theme} noSsr>
+      <CssBaseline />
+      <GapiProvider>
         <Toolbar />
-        <Typography level="h1">Chordpro Songbook</Typography>
-        <GoogleProfile />
-        <Textarea
+        <Typography variant="h1">Chordpro Songbook</Typography>
+        <TextField
           variant="outlined"
           onChange={(e) => setText(e.target.value)}
           value={text}
+          multiline
         />
-      </GoogleOAuthProvider>
-    </>
+      </GapiProvider>
+    </ThemeProvider>
   );
 }
 
