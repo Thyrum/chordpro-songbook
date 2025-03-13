@@ -1,5 +1,5 @@
 import InputSongbookUpload from "../inputs/songbook-upload";
-import GoogleAuthButton from "../google/google-auth-button";
+import GoogleAuthButton from "../login/google-auth-button";
 import {
   AppBar,
   Box,

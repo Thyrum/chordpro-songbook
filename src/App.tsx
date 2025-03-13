@@ -1,8 +1,7 @@
-import { GapiProvider } from "./components/providers/gapi-provider";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import NavigationLayout from "./components/layout/navigation";
 import SongInput from "./components/inputs/song-input";
-import { SongProvider } from "./components/inputs/song/song-provider";
+import { LoginProvider } from "./components/providers/login-provider";
 
 const theme = createTheme({
   colorSchemes: {
@@ -14,11 +13,11 @@ function App() {
   return (
     <ThemeProvider theme={theme} noSsr>
       <CssBaseline />
-      <GapiProvider>
+      <LoginProvider>
         <NavigationLayout>
           <SongInput songId="test" />
         </NavigationLayout>
-      </GapiProvider>
+      </LoginProvider>
     </ThemeProvider>
   );
 }
