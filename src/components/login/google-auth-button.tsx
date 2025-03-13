@@ -39,7 +39,11 @@ function GoogleAuthButton() {
         <Box>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu}>
-              <Avatar alt={profile.name} src={profile.photo} />
+              <Avatar
+                alt={profile.name}
+                src={profile.photo}
+                slotProps={{ img: { referrerPolicy: "no-referrer" } }}
+              />
             </IconButton>
           </Tooltip>
           <Menu
