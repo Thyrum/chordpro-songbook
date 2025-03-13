@@ -11,7 +11,10 @@ import {
   MenuItem,
   Typography,
 } from "@mui/material";
-import { AuthContext, ProfileContext } from "./gapi-context";
+import {
+  GoogleAuthContext,
+  GoogleProfileContext,
+} from "../../context/gapi-context";
 
 export type Error = Pick<
   TokenResponse,
@@ -19,8 +22,8 @@ export type Error = Pick<
 >;
 
 function GoogleAuthButton() {
-  const { authenticate, logout } = useContext(AuthContext);
-  const profile = useContext(ProfileContext);
+  const { authenticate, logout } = useContext(GoogleAuthContext);
+  const profile = useContext(GoogleProfileContext);
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -32,7 +35,6 @@ function GoogleAuthButton() {
     setAnchorElUser(null);
   };
 
-  console.log(profile);
   return (
     <>
       {profile.name && (

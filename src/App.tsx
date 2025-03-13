@@ -1,12 +1,8 @@
-import { useLocalStorage } from "usehooks-ts";
-import { GapiProvider } from "./components/google/gapi-provider";
-import {
-  createTheme,
-  CssBaseline,
-  TextField,
-  ThemeProvider,
-} from "@mui/material";
+import { GapiProvider } from "./components/providers/gapi-provider";
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import NavigationLayout from "./components/layout/navigation";
+import SongInput from "./components/inputs/song-input";
+import { SongProvider } from "./components/inputs/song/song-provider";
 
 const theme = createTheme({
   colorSchemes: {
@@ -15,32 +11,12 @@ const theme = createTheme({
 });
 
 function App() {
-  const [text, setText] = useLocalStorage("songbook", "");
-
   return (
     <ThemeProvider theme={theme} noSsr>
       <CssBaseline />
       <GapiProvider>
         <NavigationLayout>
-          <TextField
-            variant="outlined"
-            onChange={(e) => setText(e.target.value)}
-            value={text}
-            multiline
-            sx={{ height: "100%" }}
-            slotProps={{
-              input: {
-                sx: {
-                  height: "100%",
-                  alignItems: "start",
-                },
-              },
-            }}
-            onBlur={() => {
-              console.log("OnBlurred");
-            }}
-            fullWidth
-          />
+          <SongInput songId="test" />
         </NavigationLayout>
       </GapiProvider>
     </ThemeProvider>
