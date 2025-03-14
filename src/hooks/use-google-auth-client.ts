@@ -1,9 +1,9 @@
-import { useCallback, useContext, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { GOOGLE_AUTH_CLIENT_ID } from "../env-config";
-import { LoginContext } from "../context/login-context";
+import { useLoginData } from "./use-login-data";
 
 export function useGoogleAuthClient() {
-  const [_, setLoginData, clearLoginData] = useContext(LoginContext);
+  const [_, setLoginData, clearLoginData] = useLoginData();
   const client = useMemo(
     () =>
       google.accounts.oauth2.initTokenClient({
@@ -11,11 +11,6 @@ export function useGoogleAuthClient() {
         scope: "https://www.googleapis.com/auth/drive.appdata",
         callback: async (response) => {
           if (response && response.access_token) {
-            await new Promise((resolve) => gapi.load("client", resolve));
-            gapi.client.setToken({ access_token: response.access_token });
-            await gapi.client.load(
-              "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest",
-            );
             setLoginData({
               loginProvider: "google",
               authToken: response.access_token,

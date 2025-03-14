@@ -1,12 +1,16 @@
-import { Dispatch, SetStateAction, useCallback } from "react";
-import { useLocalStorage } from "usehooks-ts";
+import { useSyncedStorage } from "./use-synced-storage";
 
 export function useSong(
   id: string,
-): [string, Dispatch<SetStateAction<string>>, () => void] {
-  const [song, setSong] = useLocalStorage(`song-${id}`, "");
+): [string, (newContent: string) => void, () => void, () => void] {
+  const [song, setSong, syncSong, deleteSong] = useSyncedStorage(
+    `song-${id}`,
+    "",
+    {
+      serializer: (val) => val,
+      deserializer: (val) => val,
+    },
+  );
 
-  const saveSong = useCallback(() => {}, []);
-
-  return [song, setSong, saveSong];
+  return [song, setSong, syncSong, deleteSong];
 }

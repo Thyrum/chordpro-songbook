@@ -1,8 +1,12 @@
 import { TextField } from "@mui/material";
 import { useSong } from "../../hooks/use-song";
+import { useEffect } from "react";
 
 function SongInput({ songId }: { songId: string }) {
-  const [song, setSong, saveSong] = useSong(songId);
+  const [song, setSong, syncSong] = useSong(songId);
+  useEffect(() => {
+    syncSong();
+  }, []);
 
   return (
     <TextField
@@ -19,7 +23,7 @@ function SongInput({ songId }: { songId: string }) {
           },
         },
       }}
-      onBlur={saveSong}
+      onBlur={syncSong}
       fullWidth
     />
   );
