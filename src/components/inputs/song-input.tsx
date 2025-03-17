@@ -2,7 +2,7 @@ import { TextField } from "@mui/material";
 import { useSong } from "../../hooks/use-song";
 import { useEffect } from "react";
 
-function SongInput({ songId }: { songId: string }) {
+function SongInput({ songId }: { songId: number }) {
   const [song, setSong, syncSong] = useSong(songId);
   useEffect(() => {
     syncSong();

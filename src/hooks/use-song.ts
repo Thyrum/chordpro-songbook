@@ -1,16 +1,24 @@
-import { useSyncedStorage } from "./use-synced-storage";
+import { useLiveQuery } from "dexie-react-hooks";
+import { db } from "../database/database";
+import { useCallback } from "react";
 
 export function useSong(
-  id: string,
+  id: number,
 ): [string, (newContent: string) => void, () => void, () => void] {
-  const [song, setSong, syncSong, deleteSong] = useSyncedStorage(
-    `song-${id}`,
-    "",
-    {
-      serializer: (val) => val,
-      deserializer: (val) => val,
+  const song = useLiveQuery(() => db.songs.get(id), [id]);
+
+  const setSongContent = useCallback(
+    (content: string) => {
+      db.songs.update(id, { content });
     },
+    [id],
   );
 
-  return [song, setSong, syncSong, deleteSong];
+  const syncSongContent = () => {};
+
+  const deleteSong = useCallback(() => {
+    db.songs.delete(id);
+  }, [id]);
+
+  return [song?.content ?? "", setSongContent, syncSongContent, deleteSong];
 }

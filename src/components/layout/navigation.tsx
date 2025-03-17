@@ -5,27 +5,64 @@ import {
   Box,
   Drawer,
   IconButton,
+  Paper,
+  styled,
   Toolbar,
   Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { ReactNode, useRef, useState } from "react";
+import { ReactNode, useMemo, useState } from "react";
 import { Menu } from "@mui/icons-material";
+import { SongList } from "../song-list";
+import { NewSongButton } from "../inputs/new-song";
 
-const drawerWidth = 240;
+const drawerWidth = 250;
+
+const Main = styled("main", {
+  shouldForwardProp: (prop) => prop !== "open" && prop !== "hasDrawer",
+})<{
+  open?: boolean;
+  hasDrawer?: boolean;
+}>(({ theme }) => ({
+  flexGrow: 1,
+  padding: theme.spacing(1),
+  // transition: theme.transitions.create("margin", {
+  //   easing: theme.transitions.easing.sharp,
+  //   duration: theme.transitions.duration.leavingScreen,
+  // }),
+  marginLeft: 0,
+  variants: [
+    {
+      props: ({ open, hasDrawer }) => !open && hasDrawer,
+      style: {
+        marginLeft: `-${drawerWidth}px`,
+      },
+    },
+    {
+      props: ({ open, hasDrawer }) => open && hasDrawer,
+      style: {
+        transition: theme.transitions.create("margin", {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+      },
+    },
+  ],
+}));
 
 function NavigationLayout({ children }: { children: ReactNode }) {
   const theme = useTheme();
 
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleDrawerClose = () => {
     setIsClosing(true);
-    setMobileOpen(false);
+    setDrawerOpen(false);
   };
 
   const handleDrawerTransitionEnd = () => {
@@ -34,51 +71,70 @@ function NavigationLayout({ children }: { children: ReactNode }) {
 
   const handleDrawerToggle = () => {
     if (!isClosing) {
-      setMobileOpen(!mobileOpen);
+      setDrawerOpen(!drawerOpen);
     }
   };
 
-  const drawerContent = useRef(<InputSongbookUpload />);
+  const drawerContent = useMemo(
+    () => (
+      <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
+        {isMobile ? null : <Toolbar />}
+        <SongList />
+        <NewSongButton />
+        <InputSongbookUpload />
+      </Paper>
+    ),
+    [isMobile],
+  );
 
-  const drawer = isMobile ? (
-    <Drawer
-      variant="temporary"
-      open={mobileOpen}
-      onTransitionEnd={handleDrawerTransitionEnd}
-      onClose={handleDrawerClose}
-      sx={{
-        display: "block",
-        "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
-      }}
-      slotProps={{
-        root: {
-          keepMounted: true, // Better open performance on mobile.
-        },
-      }}
-    >
-      {drawerContent.current}
-    </Drawer>
-  ) : (
-    <Drawer
-      variant="permanent"
-      sx={{
-        display: "block",
-        "& .MuiDrawer-paper": { boxSizing: "border-box", width: drawerWidth },
-      }}
-      open
-    >
-      {drawerContent.current}
-    </Drawer>
+  const drawer = useMemo(
+    () =>
+      isMobile ? (
+        <Drawer
+          variant="temporary"
+          open={drawerOpen}
+          onTransitionEnd={handleDrawerTransitionEnd}
+          onClose={handleDrawerClose}
+          sx={{
+            display: "block",
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
+            height: "100%",
+          }}
+          slotProps={{
+            root: {
+              keepMounted: true, // Better open performance on mobile.
+            },
+          }}
+        >
+          {drawerContent}
+        </Drawer>
+      ) : (
+        <Drawer
+          variant="persistent"
+          open={drawerOpen}
+          sx={{
+            display: "block",
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
+            height: "100%",
+          }}
+        >
+          {drawerContent}
+        </Drawer>
+      ),
+    [isMobile, drawerOpen, drawerContent],
   );
 
   return (
     <Box sx={{ display: "flex", minHeight: "100%" }}>
       <AppBar
         position="fixed"
-        sx={{
-          width: { md: `calc(100% - ${drawerWidth}px)` },
-          ml: { md: `${drawerWidth}px` },
-        }}
+        sx={{ zIndex: (theme) => ({ md: theme.zIndex.drawer + 1 }) }}
       >
         <Toolbar>
           <IconButton
@@ -86,7 +142,6 @@ function NavigationLayout({ children }: { children: ReactNode }) {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { md: "none" } }}
           >
             <Menu />
           </IconButton>
@@ -106,21 +161,14 @@ function NavigationLayout({ children }: { children: ReactNode }) {
       <Box
         sx={{
           flexGrow: 1,
-          width: { md: `calc(100% - ${drawerWidth}px)` },
           display: "flex",
           flexDirection: "column",
         }}
       >
         <Toolbar sx={{ flexGrow: 0 }} />
-        <Box
-          component="main"
-          sx={{
-            p: 3,
-            flexGrow: 1,
-          }}
-        >
+        <Main open={drawerOpen} hasDrawer={!isMobile}>
           {children}
-        </Box>
+        </Main>
       </Box>
     </Box>
   );
