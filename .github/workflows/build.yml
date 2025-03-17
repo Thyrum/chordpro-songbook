@@ -1,9 +1,14 @@
 name: Build
 run-name: ${{ github.ref }} build
 on:
-  push:
-    branches:
-      - master
+  workflow_call:
+    inputs:
+      upload-artifact:
+        description: "Whether to upload the artifact as an upload-pages-artifact"
+        required: false
+        type: boolean
+        default: false
+  pull_request:
 jobs:
   build:
     name: Build
@@ -18,21 +23,8 @@ jobs:
       - name: Build
         run: npm run build
       - name: Upload static files as pages artifact
+        if: ${{ inputs.upload-artifact }}
         id: deployment
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist/
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    needs: build
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
