@@ -1,8 +1,7 @@
 import { useCallback, useContext, useEffect } from "react";
 import { useLocalStorage } from "usehooks-ts";
 import { FileApiContext } from "../context/file-api-context";
-import { useLoginData } from "./use-login-data";
-import { ApiLoadedContext } from "../context/api-load-context";
+import { useAuth } from "./use-auth";
 
 type useSyncedStorageOptions<T> = {
   /** A function to serialize the value before storing it. */
@@ -26,8 +25,7 @@ export function useSyncedStorage<T>(
     preferRemoteOverInitial = true,
   }: useSyncedStorageOptions<T>,
 ): [T, (newValue: T) => void, () => void, () => void] {
-  const [loginData] = useLoginData();
-  const apiLoaded = useContext(ApiLoadedContext);
+  const auth = useAuth();
   const { getFile, saveFile, deleteFile } = useContext(FileApiContext);
   const storedInitialValue: StoredValueType = {
     // Stringify the value again becuase we don't know what 'content' looks like
@@ -73,11 +71,11 @@ export function useSyncedStorage<T>(
   );
 
   useEffect(() => {
-    if (loginData?.loginProvider !== undefined && apiLoaded) {
+    if (auth.authMethodType !== undefined && auth.isAuthenticated) {
       syncValue();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loginData?.loginProvider, apiLoaded]);
+  }, [auth.authMethodType, auth.isAuthenticated]);
 
   console.log("Current localValue:", localValue);
   return [

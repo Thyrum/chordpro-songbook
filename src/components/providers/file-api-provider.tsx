@@ -1,11 +1,4 @@
-import {
-  ReactNode,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-} from "react";
+import { ReactNode, useCallback, useEffect, useMemo, useRef } from "react";
 import {
   emptyFileApi,
   FileApiContext,
@@ -13,14 +6,14 @@ import {
 } from "../../context/file-api-context";
 import { GenerateIdError } from "../../errors/file-errors";
 import { MultiPartBuilder } from "../../util/multi-part-builder";
-import { LoginProviderType, useLoginData } from "../../hooks/use-login-data";
-import { ApiLoadedContext } from "../../context/api-load-context";
+import { AuthMethodKey } from "../../context/auth/auth.model";
+import { useAuth } from "../../hooks/use-auth";
 
 const fetchFileId: Record<
-  LoginProviderType,
+  AuthMethodKey,
   (name: string) => Promise<string | null>
 > = {
-  google: async (name: string) => {
+  GOOGLE: async (name: string) => {
     const idQueryResult = await gapi.client.drive.files.list({
       spaces: "appDataFolder",
       q: `name='${name.replace("\\", "\\\\").replace("'", "\\'")}'`,
@@ -38,18 +31,17 @@ const fetchFileId: Record<
 };
 
 export function FileApiProvider({ children }: { children: ReactNode }) {
-  const [loginData] = useLoginData();
-  const apiLoaded = useContext(ApiLoadedContext);
+  const { authMethodType, isAuthenticated } = useAuth();
   const fileIdCache = useRef<Record<string, string>>({});
   useEffect(() => {
     fileIdCache.current = {};
-  }, [loginData?.loginProvider]);
+  }, [authMethodType]);
 
-  // Function should only be called when loginData is set
+  // Function should only be called when user is logged in
   const getFileId: (name: string) => Promise<string | null> = useCallback(
     async (name: string) => {
       if (!(name in fileIdCache.current)) {
-        const fileId = await fetchFileId[loginData!.loginProvider](name);
+        const fileId = await fetchFileId[authMethodType!](name);
         if (fileId === null) {
           return null;
         }
@@ -57,14 +49,14 @@ export function FileApiProvider({ children }: { children: ReactNode }) {
       }
       return fileIdCache.current[name];
     },
-    [fileIdCache, loginData],
+    [fileIdCache, authMethodType],
   );
 
   const generateFileId = useCallback(
     async (name: string) => {
       let id: string | undefined = undefined;
-      switch (loginData?.loginProvider) {
-        case "google": {
+      switch (authMethodType) {
+        case "GOOGLE": {
           const idQueryResult = await gapi.client.drive.files.generateIds({
             count: 1,
             space: "appDataFolder",
@@ -79,12 +71,12 @@ export function FileApiProvider({ children }: { children: ReactNode }) {
       fileIdCache.current[name] = id;
       return id;
     },
-    [loginData?.loginProvider],
+    [authMethodType],
   );
 
-  const fileApiMap: Record<LoginProviderType, FileApiType> = useMemo(
+  const fileApiMap: Record<AuthMethodKey, FileApiType> = useMemo(
     () => ({
-      google: {
+      GOOGLE: {
         getFile: async (name: string) => {
           const fileId = await getFileId(name);
           if (fileId === null) {
@@ -154,10 +146,10 @@ export function FileApiProvider({ children }: { children: ReactNode }) {
     <FileApiContext.Provider
       value={useMemo(
         () =>
-          apiLoaded && loginData?.loginProvider
-            ? fileApiMap[loginData?.loginProvider]
+          authMethodType && isAuthenticated
+            ? fileApiMap[authMethodType]
             : emptyFileApi,
-        [loginData?.loginProvider, fileApiMap, apiLoaded],
+        [authMethodType, fileApiMap, isAuthenticated],
       )}
     >
       {children}
