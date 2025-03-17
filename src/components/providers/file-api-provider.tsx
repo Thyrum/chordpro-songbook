@@ -40,8 +40,11 @@ export function FileApiProvider({ children }: { children: ReactNode }) {
   // Function should only be called when user is logged in
   const getFileId: (name: string) => Promise<string | null> = useCallback(
     async (name: string) => {
+      if (authMethodType === "undefined") {
+        return null;
+      }
       if (!(name in fileIdCache.current)) {
-        const fileId = await fetchFileId[authMethodType!](name);
+        const fileId = await fetchFileId[authMethodType](name);
         if (fileId === null) {
           return null;
         }
@@ -146,7 +149,7 @@ export function FileApiProvider({ children }: { children: ReactNode }) {
     <FileApiContext.Provider
       value={useMemo(
         () =>
-          authMethodType && isAuthenticated
+          authMethodType !== "undefined" && isAuthenticated
             ? fileApiMap[authMethodType]
             : emptyFileApi,
         [authMethodType, fileApiMap, isAuthenticated],
