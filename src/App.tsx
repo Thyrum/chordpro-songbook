@@ -1,8 +1,14 @@
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import NavigationLayout from "./components/layout/navigation";
-import SongInput from "./components/inputs/song-input";
 import { FileApiProvider } from "./components/providers/file-api-provider";
 import { AuthProvider } from "./context/auth/auth-provider";
+import { HashRouter, Route, Routes } from "react-router";
+import { EditSongPage } from "./pages/edit-song-page";
+import { NoSongPage } from "./pages/no-song-page";
+import { lazy, Suspense } from "react";
+import { DEV } from "./env-config";
+
+const Eruda = lazy(() => import("./components/scripts/Eruda"));
 
 const theme = createTheme({
   colorSchemes: {
@@ -12,16 +18,40 @@ const theme = createTheme({
 
 function App() {
   return (
-    <ThemeProvider theme={theme} noSsr>
-      <CssBaseline />
-      <AuthProvider>
-        <NavigationLayout>
+    <>
+      {DEV && (
+        <Suspense fallback={null}>
+          <Eruda />
+        </Suspense>
+      )}
+      <ThemeProvider theme={theme} noSsr>
+        <CssBaseline enableColorScheme />
+        <AuthProvider>
           <FileApiProvider>
-            <SongInput songId="test" />
+            <HashRouter>
+              <Routes>
+                <Route
+                  path="/song/:songId"
+                  element={
+                    <NavigationLayout>
+                      <EditSongPage />
+                    </NavigationLayout>
+                  }
+                />
+                <Route
+                  path="/"
+                  element={
+                    <NavigationLayout>
+                      <NoSongPage />
+                    </NavigationLayout>
+                  }
+                />
+              </Routes>
+            </HashRouter>
           </FileApiProvider>
-        </NavigationLayout>
-      </AuthProvider>
-    </ThemeProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </>
   );
 }
 

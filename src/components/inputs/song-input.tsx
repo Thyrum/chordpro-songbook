@@ -1,18 +1,24 @@
 import { TextField } from "@mui/material";
-import { useSong } from "../../hooks/use-song";
-import { useEffect } from "react";
+import { useDBSong } from "../../hooks/use-db-song";
+import { useCallback, useEffect, useState } from "react";
 
-function SongInput({ songId }: { songId: string }) {
-  const [song, setSong, syncSong] = useSong(songId);
+function SongInput({ songId }: { songId: number }) {
+  const [DBsong, setDBSong] = useDBSong(songId);
+  const [content, setContent] = useState(DBsong);
+
+  const onBlur = useCallback(async () => {
+    setDBSong(content);
+  }, [setDBSong, content]);
+
   useEffect(() => {
-    syncSong();
-  }, []);
+    setContent(DBsong);
+  }, [DBsong]);
 
   return (
     <TextField
       variant="outlined"
-      onChange={(e) => setSong(e.target.value)}
-      value={song}
+      onChange={(e) => setContent(e.target.value)}
+      value={content}
       multiline
       sx={{ height: "100%" }}
       slotProps={{
@@ -23,7 +29,7 @@ function SongInput({ songId }: { songId: string }) {
           },
         },
       }}
-      onBlur={syncSong}
+      onBlur={onBlur}
       fullWidth
     />
   );
