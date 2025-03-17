@@ -2,7 +2,7 @@ import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import NavigationLayout from "./components/layout/navigation";
 import SongInput from "./components/inputs/song-input";
 import { FileApiProvider } from "./components/providers/file-api-provider";
-import { ApiLoadedProvider } from "./components/providers/api-loaded-provider";
+import { AuthProvider } from "./context/auth/auth-provider";
 
 const theme = createTheme({
   colorSchemes: {
@@ -14,13 +14,13 @@ function App() {
   return (
     <ThemeProvider theme={theme} noSsr>
       <CssBaseline />
-      <ApiLoadedProvider>
+      <AuthProvider>
         <NavigationLayout>
           <FileApiProvider>
             <SongInput songId="test" />
           </FileApiProvider>
         </NavigationLayout>
-      </ApiLoadedProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

@@ -1,5 +1,4 @@
 import { Google } from "@mui/icons-material";
-import { TokenResponse } from "@react-oauth/google";
 import { useState } from "react";
 import {
   Button,
@@ -11,17 +10,10 @@ import {
   MenuItem,
   Typography,
 } from "@mui/material";
-import { useGoogleAuthClient } from "../../hooks/use-google-auth-client";
-import { useProfile } from "../../hooks/use-profile";
-
-export type Error = Pick<
-  TokenResponse,
-  "error" | "error_description" | "error_uri"
->;
+import { useAuth } from "../../hooks/use-auth";
 
 function GoogleAuthButton() {
-  const authClient = useGoogleAuthClient();
-  const [profile] = useProfile();
+  const auth = useAuth();
 
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -35,13 +27,13 @@ function GoogleAuthButton() {
 
   return (
     <>
-      {profile.name && (
+      {auth.isAuthenticated && (
         <Box>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu}>
               <Avatar
-                alt={profile.name}
-                src={profile.photo}
+                alt={auth.user?.username}
+                src={auth.user?.photo}
                 slotProps={{ img: { referrerPolicy: "no-referrer" } }}
               />
             </IconButton>
@@ -65,7 +57,7 @@ function GoogleAuthButton() {
             <MenuItem
               onClick={() => {
                 handleCloseUserMenu();
-                authClient.logout();
+                auth.signOut();
               }}
             >
               <Typography sx={{ textAlign: "center" }}>Logout</Typography>
@@ -73,10 +65,10 @@ function GoogleAuthButton() {
           </Menu>
         </Box>
       )}
-      {!profile.name && (
+      {!auth.isAuthenticated && (
         <Button
           endIcon={<Google />}
-          onClick={authClient.authenticate}
+          onClick={() => auth.signIn("GOOGLE")}
           variant="contained"
         >
           Sign in
