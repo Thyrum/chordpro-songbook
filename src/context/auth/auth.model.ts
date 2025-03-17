@@ -10,7 +10,7 @@ export interface User {
 
 export interface AuthContextData {
   user?: User;
-  signIn: (method: AuthMethodKey) => void;
+  signIn: (method: AuthMethodKey, hint?: string) => void;
   signOut: () => void;
   isAuthenticated: boolean;
   authMethodType: AuthMethodKey | "undefined";

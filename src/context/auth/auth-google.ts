@@ -32,23 +32,21 @@ export class AuthGoogle implements IAuth {
     });
   }
 
-  public async signIn(): Promise<User | void> {
+  public async signIn(hint?: string): Promise<User | void> {
     console.log("signIn google");
     if (!this.instance) this.initialize();
     const result = new Promise<User | void>((resolve, reject) => {
       this.resolveSignIn = resolve;
       this.rejectSignIn = reject;
     });
-    this.instance?.requestAccessToken();
+    this.instance?.requestAccessToken({ login_hint: hint });
     return result;
   }
 
   public async signOut() {
     if (this.access_token !== undefined) {
-      await new Promise<void>((resolve) =>
-        google.accounts.oauth2.revoke(this.access_token!, () => resolve()),
-      );
       this.access_token = undefined;
+      gapi.client.setToken(null);
     }
     this.resolveSignIn = undefined;
     this.rejectSignIn = undefined;

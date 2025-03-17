@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AuthMethod,
   AuthMethodKey,
@@ -12,6 +12,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User>();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [authMethod, setAuthMethod] = useState<IAuth>();
+  const hint = useRef<string | undefined>(undefined);
 
   useEffect(() => {
     createAuthMethodFromStorage();
@@ -22,7 +23,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const auth = AuthMethod[method];
     setAuthMethod(auth);
 
-    const user = await auth.signIn();
+    const user = await auth.signIn(hint.current);
 
     if (user != undefined) {
       await setUserLogged(auth);
@@ -35,7 +36,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       setUser(undefined);
       authMethod?.signOut();
       localStorage.removeItem("@Auth.method");
-      localStorage.removeItem("@Auth.user");
+      localStorage.removeItem("@Auth.hint");
+      hint.current = undefined;
     } else {
       console.error("auth method undefined");
     }
@@ -52,6 +54,10 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setIsAuthenticated(isAuthenticated);
     const user = await authMethod.getUser();
     setUser(user);
+    if (user) {
+      hint.current = user.email;
+      localStorage.setItem("@Auth.hint", user.email);
+    }
   }
 
   async function createAuthMethodFromStorage() {
@@ -59,6 +65,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     if (storageMethod) {
       const method = storageMethod as AuthMethodKey;
       const auth = AuthMethod[method];
+      hint.current = localStorage.getItem("@Auth.hint") ?? undefined;
       setAuthMethod(auth);
     }
   }
