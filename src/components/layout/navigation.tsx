@@ -26,14 +26,14 @@ const Main = styled("main", {
 }>(({ theme }) => ({
   flexGrow: 1,
   padding: theme.spacing(1),
-  // transition: theme.transitions.create("margin", {
-  //   easing: theme.transitions.easing.sharp,
-  //   duration: theme.transitions.duration.leavingScreen,
-  // }),
+  transition: theme.transitions.create("padding", {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
   marginLeft: 0,
   variants: [
     {
-      props: ({ open, hasDrawer }) => !open && hasDrawer,
+      props: ({ hasDrawer }) => hasDrawer,
       style: {
         marginLeft: `-${drawerWidth}px`,
       },
@@ -41,11 +41,11 @@ const Main = styled("main", {
     {
       props: ({ open, hasDrawer }) => open && hasDrawer,
       style: {
-        transition: theme.transitions.create("margin", {
+        transition: theme.transitions.create("padding", {
           easing: theme.transitions.easing.easeOut,
           duration: theme.transitions.duration.enteringScreen,
         }),
-        marginLeft: 0,
+        paddingLeft: `calc(${drawerWidth}px + ${theme.spacing(1)})`,
       },
     },
   ],
