@@ -5,13 +5,8 @@ import { AuthProvider } from "./context/auth/auth-provider";
 import { HashRouter, Route, Routes } from "react-router";
 import { EditSongPage } from "./pages/edit-song-page";
 import { NoSongPage } from "./pages/no-song-page";
-import { lazy, Suspense } from "react";
 import { DEV } from "./env-config";
-
-console.log("DEV=", DEV);
-const Eruda = DEV
-  ? lazy(() => import("./components/scripts/Eruda"))
-  : undefined;
+import { useEffect } from "react";
 
 const theme = createTheme({
   colorSchemes: {
@@ -20,13 +15,13 @@ const theme = createTheme({
 });
 
 function App() {
+  useEffect(() => {
+    if (DEV) {
+      import("eruda").then(({ default: eruda }) => eruda.init());
+    }
+  }, []);
   return (
     <>
-      {Eruda && (
-        <Suspense fallback={null}>
-          <Eruda />
-        </Suspense>
-      )}
       <ThemeProvider theme={theme} noSsr>
         <CssBaseline enableColorScheme />
         <AuthProvider>
