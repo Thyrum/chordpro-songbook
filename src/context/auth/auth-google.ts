@@ -43,6 +43,19 @@ export class AuthGoogle implements IAuth {
     return result;
   }
 
+  public async refresh(hint?: string): Promise<User | void> {
+    if (hint === undefined) {
+      throw Error("GOOGLE requires auth hint to refresh");
+    }
+    if (!this.instance) this.initialize();
+    const result = new Promise<User | void>((resolve, reject) => {
+      this.resolveSignIn = resolve;
+      this.rejectSignIn = reject;
+    });
+    this.instance?.requestAccessToken({ login_hint: hint, prompt: "" });
+    return result;
+  }
+
   public async signOut() {
     if (this.access_token !== undefined) {
       this.access_token = undefined;
