@@ -8,7 +8,10 @@ import { NoSongPage } from "./pages/no-song-page";
 import { lazy, Suspense } from "react";
 import { DEV } from "./env-config";
 
-const Eruda = lazy(() => import("./components/scripts/Eruda"));
+console.log("DEV=", DEV);
+const Eruda = DEV
+  ? lazy(() => import("./components/scripts/Eruda"))
+  : undefined;
 
 const theme = createTheme({
   colorSchemes: {
@@ -19,7 +22,7 @@ const theme = createTheme({
 function App() {
   return (
     <>
-      {DEV && (
+      {Eruda && (
         <Suspense fallback={null}>
           <Eruda />
         </Suspense>
