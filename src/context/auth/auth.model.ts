@@ -10,8 +10,8 @@ export interface User {
 
 export interface AuthContextData {
   user?: User;
-  signIn: (method: AuthMethodKey, hint?: string) => void;
-  signOut: () => void;
+  signIn: (method: AuthMethodKey, hint?: string) => Promise<void>;
+  signOut: () => Promise<void>;
   isAuthenticated: boolean;
   authMethodType: AuthMethodKey | "undefined";
 }

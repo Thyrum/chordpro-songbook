@@ -30,11 +30,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
-  function signOut() {
+  async function signOut() {
     if (authMethod) {
       setIsAuthenticated(false);
       setUser(undefined);
-      authMethod?.signOut();
+      await authMethod?.signOut();
       localStorage.removeItem("@Auth.method");
       localStorage.removeItem("@Auth.hint");
       hint.current = undefined;
