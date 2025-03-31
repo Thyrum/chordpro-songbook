@@ -7,6 +7,7 @@ import { EditSongPage } from "./pages/edit-song-page";
 import { NoSongPage } from "./pages/no-song-page";
 import { DEV } from "./env-config";
 import { useEffect } from "react";
+import { ABCEditor } from "./pages/abc-editor";
 
 const theme = createTheme({
   colorSchemes: {
@@ -29,7 +30,7 @@ function App() {
             <HashRouter>
               <Routes>
                 <Route
-                  path="/song/:songId"
+                  path="song/:songId"
                   element={
                     <NavigationLayout>
                       <EditSongPage />
@@ -37,13 +38,17 @@ function App() {
                   }
                 />
                 <Route
-                  path="/"
+                  index
                   element={
                     <NavigationLayout>
                       <NoSongPage />
                     </NavigationLayout>
                   }
                 />
+                <Route path="/tools">
+                  <Route index element={<></>} />
+                  <Route path="abceditor" element={<ABCEditor />} />
+                </Route>
               </Routes>
             </HashRouter>
           </FileApiProvider>
