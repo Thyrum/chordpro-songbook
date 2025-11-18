@@ -3,6 +3,7 @@ import { db } from "../../database/database";
 import { useCallback, useEffect, useState } from "react";
 import SongContent from "../../database/entities/song-content";
 import SongMetadata from "../../database/entities/song-metadata";
+import { deleteSong } from "./util";
 
 type Song = SongContent & SongMetadata;
 
@@ -15,15 +16,19 @@ export function useSong(
   () => void,
   () => void,
 ] {
-  const song = useLiveQuery(async () => {
-    console.log("Querying");
-    const content = await db.songContent.get(id);
-    const metadata = await db.songMetadata.get(id);
-    if (content && metadata) {
-      return { ...content, ...metadata };
-    }
-    return undefined;
-  }, [id]);
+  const song = useLiveQuery(
+    async () => {
+      console.log("Querying");
+      const content = await db.songContent.get(id);
+      const metadata = await db.songMetadata.get(id);
+      if (content && metadata) {
+        return { ...content, ...metadata };
+      }
+      return undefined;
+    },
+    [id],
+    { id, title: "Loading...", content: "", lastModified: 0 },
+  );
 
   // Store separate local content to avoid cursor jumps in input fields
   const [content, setContent] = useState(song?.content ?? "");
@@ -53,16 +58,13 @@ export function useSong(
     db.songMetadata.update(id, { title });
   }, [id]);
 
-  const deleteSong = useCallback(() => {
-    db.songContent.delete(id);
-    db.songMetadata.delete(id);
-  }, [id]);
+  const deleteSongCallback = useCallback(() => deleteSong(id), [id]);
 
   return [
     song ? { ...song, content } : undefined,
     setSongContent,
     updateSongMetadata,
     syncSong,
-    deleteSong,
+    deleteSongCallback,
   ];
 }

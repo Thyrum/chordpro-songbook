@@ -79,8 +79,8 @@ function NavigationLayout({ children }: { children: ReactNode }) {
     () => (
       <Paper
         sx={{
-          height: "100%",
           display: "flex",
+          height: "100%",
           flexDirection: "column",
           gap: theme.spacing(1),
           padding: theme.spacing(1),

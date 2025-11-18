@@ -1,11 +1,9 @@
 import { TextField } from "@mui/material";
 import { useSong } from "../../hooks/song/use-song";
 import { useEffect } from "react";
-import { useNavigate } from "react-router";
 
 export default function SongInput({ songId }: { songId: number }) {
   const [song, setSongContent, updateSongMetadata] = useSong(songId);
-  const navigate = useNavigate();
 
   useEffect(() => {
     window.addEventListener("beforeunload", updateSongMetadata);
@@ -15,7 +13,6 @@ export default function SongInput({ songId }: { songId: number }) {
   }, [updateSongMetadata]);
 
   if (!song) {
-    navigate("/");
     return null;
   }
 
