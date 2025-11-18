@@ -77,11 +77,21 @@ function NavigationLayout({ children }: { children: ReactNode }) {
 
   const drawerContent = useMemo(
     () => (
-      <Paper sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
-        {isMobile ? null : <Toolbar />}
+      <Paper
+        sx={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          gap: theme.spacing(1),
+          padding: theme.spacing(1),
+        }}
+      >
+        {isMobile ? null : <Toolbar sx={{ marginBottom: theme.spacing(-1) }} />}
         <SongList />
-        <NewSongButton />
-        <InputSongbookUpload />
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <InputSongbookUpload />
+          <NewSongButton />
+        </Box>
       </Paper>
     ),
     [isMobile],

@@ -34,6 +34,7 @@ export default function SongInput({ songId }: { songId: number }) {
           },
         },
       }}
+      autoFocus
       onBlur={updateSongMetadata}
       fullWidth
     />

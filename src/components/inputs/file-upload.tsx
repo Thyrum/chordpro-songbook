@@ -38,6 +38,8 @@ export default function InputFileUpload({
       role={undefined}
       tabIndex={-1}
       startIcon={icon}
+      variant="outlined"
+      size="small"
       {...props}
     >
       {text}

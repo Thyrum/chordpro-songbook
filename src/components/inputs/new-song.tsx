@@ -1,5 +1,5 @@
 import { Add } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import { db } from "../../database/database";
 import { useNavigate } from "react-router";
 
@@ -20,8 +20,10 @@ export function NewSongButton() {
   }
 
   return (
-    <IconButton onClick={newSong}>
-      <Add />
-    </IconButton>
+    <Tooltip title="New Song">
+      <IconButton onClick={newSong}>
+        <Add />
+      </IconButton>
+    </Tooltip>
   );
 }
