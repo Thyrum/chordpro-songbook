@@ -1,14 +1,24 @@
-import Dexie, { EntityTable } from "dexie";
-import Song from "./entities/song";
+import Dexie, { Table } from "dexie";
+import SongContent from "./entities/song-content";
+import SongMetadata from "./entities/song-metadata";
+
+type TableWithGeneratedKey<Type, Key extends string, KeyType> = Table<
+  Type,
+  KeyType,
+  Omit<Type, Key> & { Key?: KeyType }
+>;
 
 export default class SongbookDB extends Dexie {
-  songs!: EntityTable<Song, "id">;
+  songContent!: TableWithGeneratedKey<SongContent, "id", number>;
+  songMetadata!: Table<SongMetadata, number>;
 
   constructor() {
     super("SongbookDB");
     this.version(1).stores({
-      songs: "++id, title, content, lastModified",
+      songContent: "++id, content, lastModified",
+      songMetadata: "id, title",
     });
-    this.songs.mapToClass(Song);
+    this.songContent.mapToClass(SongContent);
+    this.songMetadata.mapToClass(SongMetadata);
   }
 }

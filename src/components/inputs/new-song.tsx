@@ -7,9 +7,13 @@ export function NewSongButton() {
   const navigate = useNavigate();
 
   async function newSong() {
-    const songId = await db.songs.put({
-      title: "",
+    console.log("Creating new song");
+    const songId = await db.songContent.put({
       content: "",
+    });
+    await db.songMetadata.put({
+      id: songId,
+      title: "Untitled",
       lastModified: Date.now(),
     });
     navigate(`/song/${songId}`);

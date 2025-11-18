@@ -4,7 +4,7 @@ import { List, ListItem, ListItemButton, Paper, useTheme } from "@mui/material";
 import { Link, useParams } from "react-router";
 
 export function SongList() {
-  const songs = useLiveQuery(() => db.songs.toArray()) ?? [];
+  const songs = useLiveQuery(() => db.songMetadata.toArray()) ?? [];
   const theme = useTheme();
   const { songId } = useParams();
   console.log("Got songId", songId);
