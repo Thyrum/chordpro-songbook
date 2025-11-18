@@ -1,24 +1,26 @@
 import { TextField } from "@mui/material";
-import { useDBSong } from "../../hooks/use-db-song";
-import { useCallback, useEffect, useState } from "react";
+import { useSong } from "../../hooks/song/use-song";
+import { useEffect } from "react";
 
-function SongInput({ songId }: { songId: number }) {
-  const [DBsong, setDBSong] = useDBSong(songId);
-  const [content, setContent] = useState(DBsong);
-
-  const onBlur = useCallback(async () => {
-    setDBSong(content);
-  }, [setDBSong, content]);
+export default function SongInput({ songId }: { songId: number }) {
+  const [song, setSongContent, updateSongMetadata] = useSong(songId);
 
   useEffect(() => {
-    setContent(DBsong);
-  }, [DBsong]);
+    window.addEventListener("beforeunload", updateSongMetadata);
+    return () => {
+      window.removeEventListener("beforeunload", updateSongMetadata);
+    };
+  }, [updateSongMetadata]);
+
+  if (!song) {
+    return null;
+  }
 
   return (
     <TextField
       variant="outlined"
-      onChange={(e) => setContent(e.target.value)}
-      value={content}
+      onChange={(e) => setSongContent(e.target.value)}
+      value={song.content}
       multiline
       sx={{ height: "100%" }}
       slotProps={{
@@ -29,10 +31,9 @@ function SongInput({ songId }: { songId: number }) {
           },
         },
       }}
-      onBlur={onBlur}
+      autoFocus
+      onBlur={updateSongMetadata}
       fullWidth
     />
   );
 }
-
-export default SongInput;

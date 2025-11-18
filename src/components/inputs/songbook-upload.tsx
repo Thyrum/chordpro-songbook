@@ -1,7 +1,7 @@
 import { useLocalStorage } from "usehooks-ts";
 import InputFileUpload from "./file-upload";
 
-function InputSongbookUpload() {
+export default function InputSongbookUpload() {
   const [_, setSongbook] = useLocalStorage("songbook", "");
 
   async function saveFile(files: FileList | null) {
@@ -20,5 +20,3 @@ function InputSongbookUpload() {
     />
   );
 }
-
-export default InputSongbookUpload;

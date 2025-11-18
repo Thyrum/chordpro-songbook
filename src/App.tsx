@@ -21,35 +21,33 @@ function App() {
     }
   }, []);
   return (
-    <>
-      <ThemeProvider theme={theme} noSsr>
-        <CssBaseline enableColorScheme />
-        <AuthProvider>
-          <FileApiProvider>
-            <HashRouter>
-              <Routes>
-                <Route
-                  path="/song/:songId"
-                  element={
-                    <NavigationLayout>
-                      <EditSongPage />
-                    </NavigationLayout>
-                  }
-                />
-                <Route
-                  path="/"
-                  element={
-                    <NavigationLayout>
-                      <NoSongPage />
-                    </NavigationLayout>
-                  }
-                />
-              </Routes>
-            </HashRouter>
-          </FileApiProvider>
-        </AuthProvider>
-      </ThemeProvider>
-    </>
+    <ThemeProvider theme={theme} noSsr>
+      <CssBaseline enableColorScheme />
+      <AuthProvider>
+        <FileApiProvider>
+          <HashRouter>
+            <Routes>
+              <Route
+                path="/song/:songId"
+                element={
+                  <NavigationLayout>
+                    <EditSongPage />
+                  </NavigationLayout>
+                }
+              />
+              <Route
+                path="/"
+                element={
+                  <NavigationLayout>
+                    <NoSongPage />
+                  </NavigationLayout>
+                }
+              />
+            </Routes>
+          </HashRouter>
+        </FileApiProvider>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 
