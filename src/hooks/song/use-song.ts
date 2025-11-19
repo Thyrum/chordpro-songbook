@@ -18,7 +18,6 @@ export function useSong(
 ] {
   const song = useLiveQuery(
     async () => {
-      console.log("Querying");
       const content = await db.songContent.get(id);
       const metadata = await db.songMetadata.get(id);
       if (content && metadata) {

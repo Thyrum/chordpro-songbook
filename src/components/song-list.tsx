@@ -68,7 +68,6 @@ export function SongList() {
                       : songs[index - 1]?.id
                         ? songs[index - 1].id
                         : null;
-                    console.log("Navigating to", targetId);
                     navigate(targetId ? `/song/${targetId}` : "/");
                     void deleteSong(song.id);
                   }}
