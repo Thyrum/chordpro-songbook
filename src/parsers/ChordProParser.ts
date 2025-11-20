@@ -203,7 +203,7 @@ export class ChordProParser {
         break;
       case TagType.CustomMetadata:
         this.parseCustomMetadataTag(tag.longName, tag.value);
-      // eslint-disable-next-line no-fallthrough
+        break;
       case TagType.StartOfBlock:
         this.parseStartOfBlockTag(tag.longName, tag.value);
         break;

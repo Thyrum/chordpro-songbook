@@ -1,6 +1,5 @@
 import { TextField } from "@mui/material";
 import { useSong } from "../../hooks/song/use-song";
-import { useEffect } from "react";
 import { useEventListener } from "usehooks-ts";
 
 export default function SongInput({ songId }: { songId: number }) {
