@@ -21,7 +21,7 @@ export function ChordLyricsPairView({
       ) : showEmptyChord ? (
         <Box>&nbsp;</Box>
       ) : null}
-      <Box>{chordLyricsPair.lyrics}</Box>
+      <Box sx={{ whiteSpace: "pre" }}>{chordLyricsPair.lyrics}</Box>
     </Box>
   );
 }

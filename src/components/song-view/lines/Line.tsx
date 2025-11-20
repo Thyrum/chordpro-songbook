@@ -1,8 +1,6 @@
-import { CommentLine, Line, LyricsLine } from "../../../models/lines";
+import { CommentLineView, EmptyLineView, LyricsLineView, TabLineView } from ".";
+import { CommentLine, Line, LyricsLine, TabLine } from "../../../models/lines";
 import { LineType } from "../../../models/lines/Line";
-import { CommentLineView } from "./CommentLine";
-import EmptyLineView from "./EmptyLine";
-import { LyricsLineView } from "./LyricsLine";
 
 export function LineView({ line }: { line: Line }) {
   switch (line.lineType) {
@@ -12,6 +10,8 @@ export function LineView({ line }: { line: Line }) {
       return <LyricsLineView line={line as LyricsLine} />;
     case LineType.Comment:
       return <CommentLineView line={line as CommentLine} />;
+    case LineType.Tabs:
+      return <TabLineView line={line as TabLine} />;
     default:
       return null;
   }
