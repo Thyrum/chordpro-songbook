@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import { useSong } from "../hooks/song/use-song";
 import useDebouncedValue from "../hooks/use-debounced-value";
 import { ChordProParser } from "../parsers";
@@ -12,11 +12,16 @@ export function DebouncedSongView({
   debounceMs?: number;
 }) {
   const [song] = useSong(songId);
+  const oldId = useRef<number>(songId);
 
   const debouncedContent = useDebouncedValue(
     song?.content,
     debounceMs,
-    (oldValue) => oldValue === undefined,
+    (oldValue) => {
+      const newSong = oldId.current !== songId;
+      oldId.current = songId;
+      return newSong || oldValue === undefined;
+    },
   );
 
   const parsedSong = useMemo(() => {
