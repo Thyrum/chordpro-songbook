@@ -13,11 +13,12 @@ export function NewSongButton() {
     console.log("Creating new song");
     const songId = await db.songContent.put({
       content: "",
+      lastModified: Date.now(),
     });
     await db.songMetadata.put({
       id: songId,
       title: "Untitled",
-      lastModified: Date.now(),
+      artists: [],
     });
     navigate(`/song/${songId}`);
     if (isMobile) setDrawerOpen(false);

@@ -5,6 +5,7 @@ import {
   List,
   ListItem,
   ListItemButton,
+  ListItemText,
   Paper,
 } from "@mui/material";
 import { Link, useNavigate, useParams } from "react-router";
@@ -61,6 +62,7 @@ export function SongList() {
                 <IconButton
                   edge="end"
                   aria-label="delete"
+                  size="small"
                   onClick={(e) => {
                     e.preventDefault();
                     const targetId = songs[index + 1]?.id
@@ -94,7 +96,10 @@ export function SongList() {
               }
               onClick={() => isMobile && setDrawerOpen(false)}
             >
-              {song.id} - {song.title}
+              <ListItemText
+                primary={song.title ?? "Untitled"}
+                secondary={song.artists.join(", ")}
+              />
             </ListItemButton>
           </ListItem>
         ))}

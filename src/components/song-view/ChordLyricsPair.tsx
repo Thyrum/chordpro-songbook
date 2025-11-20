@@ -4,8 +4,10 @@ import { ChordView } from "./Chord";
 
 export function ChordLyricsPairView({
   chordLyricsPair,
+  showEmptyChord = true,
 }: {
   chordLyricsPair: ChordLyricsPair;
+  showEmptyChord?: boolean;
 }) {
   const theme = useTheme();
   return (
@@ -14,9 +16,11 @@ export function ChordLyricsPairView({
         <Box sx={{ color: theme.palette.secondary.main }}>
           {chordLyricsPair.text}
         </Box>
-      ) : (
+      ) : chordLyricsPair.chord ? (
         <ChordView chord={chordLyricsPair.chord} />
-      )}
+      ) : showEmptyChord ? (
+        <Box>&nbsp;</Box>
+      ) : null}
       <Box>{chordLyricsPair.lyrics}</Box>
     </Box>
   );

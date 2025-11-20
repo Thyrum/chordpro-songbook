@@ -6,7 +6,10 @@ export function LyricsLineView({ line }: { line: LyricsLine }) {
   return (
     <Box sx={{ display: "flex" }}>
       {line.pairs.map((pair) => (
-        <ChordLyricsPairView chordLyricsPair={pair} />
+        <ChordLyricsPairView
+          chordLyricsPair={pair}
+          showEmptyChord={line.pairs.length > 1}
+        />
       ))}
     </Box>
   );
