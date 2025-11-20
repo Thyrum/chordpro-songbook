@@ -1,19 +1,36 @@
-import { Box } from "@mui/material";
-import ChordLine from "./song-components/chord-line";
+import { Box, Paper } from "@mui/material";
+import Verse from "./song-components/verse";
+import { ChordProParser } from "../../parsers";
 
 export function SongContentView({ content }: { content: string }) {
-  const lines = content.split("\n");
+  const songParser = new ChordProParser();
+  const parsedSong = songParser.parse(content);
 
   return (
-    <ChordLine
-      line={[
-        { text: "A" },
-        { text: "mazing ", chord: "G" },
-        { text: "Grace, how ", chord: "G7" },
-        { text: "sweet the ", chord: "C" },
-        { text: "sound", chord: "G" },
-      ]}
-    />
+    <>
+      <Verse
+        verse={{
+          lines: [
+            {
+              type: SongLineType.CHORD_LINE,
+              content: [
+                { text: "A" },
+                { text: "mazing ", chord: "G" },
+                { text: "Grace, how ", chord: "G7" },
+                { text: "sweet the ", chord: "C" },
+                { text: "sound", chord: "G" },
+              ],
+            },
+            {
+              type: SongLineType.LYRICS_LINE,
+              content: "That saved a wretch like me!",
+            },
+          ],
+        }}
+      />
+      <Paper elevation={3} sx={{ p: 2, mt: 2 }}>
+        <Box sx={{ whiteSpace: "pre" }}>{content}</Box>
+      </Paper>
+    </>
   );
-  return <Box sx={{ whiteSpace: "pre" }}>{content}</Box>;
 }
