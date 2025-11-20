@@ -16,7 +16,7 @@ export default class SongbookDB extends Dexie {
     super("SongbookDB");
     this.version(1).stores({
       songContent: "++id, content, lastModified",
-      songMetadata: "id, title",
+      songMetadata: "id, title, artists",
     });
     this.songContent.mapToClass(SongContent);
     this.songMetadata.mapToClass(SongMetadata);

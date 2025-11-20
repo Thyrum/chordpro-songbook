@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import SongContent from "../../database/entities/song-content";
 import SongMetadata from "../../database/entities/song-metadata";
 import { deleteSong } from "./util";
+import { ChordProParser } from "../../parsers";
 
 type Song = SongContent & SongMetadata;
 
@@ -18,7 +19,6 @@ export function useSong(
 ] {
   const song = useLiveQuery(
     async () => {
-      console.log("Querying");
       const content = await db.songContent.get(id);
       const metadata = await db.songMetadata.get(id);
       if (content && metadata) {
@@ -27,7 +27,7 @@ export function useSong(
       return undefined;
     },
     [id],
-    { id, title: "Loading...", content: "", lastModified: 0 },
+    { id, title: "Loading...", artists: [], content: "", lastModified: 0 },
   );
 
   // Store separate local content to avoid cursor jumps in input fields
@@ -54,8 +54,12 @@ export function useSong(
 
   const updateSongMetadata = useCallback(async () => {
     const songContent = await db.songContent.get(id);
-    const title = songContent?.content.split("\n")[0] || "Untitled";
-    db.songMetadata.update(id, { title });
+    const parser = new ChordProParser();
+    const song = parser.parse(songContent?.content ?? "");
+    db.songMetadata.update(id, {
+      title: song.title ?? undefined,
+      artists: song.artists,
+    });
   }, [id]);
 
   const deleteSongCallback = useCallback(() => deleteSong(id), [id]);

@@ -30,6 +30,7 @@ const Main = styled("main", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
+  width: "100vw",
   marginLeft: 0,
   variants: [
     {
@@ -128,7 +129,7 @@ function NavigationLayout({ children }: { children: ReactNode }) {
 
   return (
     <NavigationContext.Provider value={{ setDrawerOpen, isMobile }}>
-      <Box sx={{ display: "flex", minHeight: "100%" }}>
+      <Box sx={{ display: "flex", minHeight: "100%", width: "100vw" }}>
         <AppBar
           position="fixed"
           sx={{ zIndex: (theme) => ({ md: theme.zIndex.drawer + 1 }) }}
