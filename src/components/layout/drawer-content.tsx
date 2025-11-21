@@ -13,6 +13,7 @@ export function DrawerContent() {
         flexDirection: "column",
         padding: theme.spacing(1),
         gap: theme.spacing(1),
+        overflow: "hidden",
       }}
     >
       <SongList />
