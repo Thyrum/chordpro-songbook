@@ -1,4 +1,4 @@
-import { GOOGLE_AUTH_CLIENT_ID } from "../env-config";
+import { GOOGLE_AUTH_CLIENT_ID } from "@/env-config";
 
 export const googleConfig = {
   client_id: GOOGLE_AUTH_CLIENT_ID,

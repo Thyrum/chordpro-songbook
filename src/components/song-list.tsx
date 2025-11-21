@@ -1,5 +1,5 @@
 import { useLiveQuery } from "dexie-react-hooks";
-import { db } from "../database/database";
+import { db } from "@database/database";
 import {
   IconButton,
   List,
@@ -48,7 +48,7 @@ export function SongList() {
 
   return (
     <Paper
-      sx={{ overflow: "scroll", flexGrow: 1 }}
+      sx={{ overflow: "auto", flexGrow: 1 }}
       variant="outlined"
       ref={containerRef}
     >

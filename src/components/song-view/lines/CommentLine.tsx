@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { CommentLine } from "../../../models/lines";
+import { CommentLine } from "@models/lines";
 
 export function CommentLineView({ line }: { line: CommentLine }) {
   return (

@@ -1,7 +1,7 @@
 import { useMemo, useRef } from "react";
-import { useSong } from "../hooks/song/use-song";
-import useDebouncedValue from "../hooks/use-debounced-value";
-import { ChordProParser } from "../parsers";
+import { useSong } from "@hooks/song/use-song";
+import useDebouncedValue from "@hooks/use-debounced-value";
+import { ChordProParser } from "@parsers";
 import { SongView } from "./song-view/Song";
 
 export function DebouncedSongView({

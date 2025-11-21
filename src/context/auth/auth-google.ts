@@ -1,4 +1,4 @@
-import { googleConfig } from "../../services/google-config";
+import { googleConfig } from "@services/google-config";
 import { AuthMethodKey, User } from "./auth.model";
 import { IAuth } from "./i-auth";
 

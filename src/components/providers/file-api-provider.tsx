@@ -3,11 +3,11 @@ import {
   emptyFileApi,
   FileApiContext,
   FileApiType,
-} from "../../context/file-api-context";
-import { GenerateIdError } from "../../errors/file-errors";
-import { MultiPartBuilder } from "../../util/multi-part-builder";
-import { AuthMethodKey } from "../../context/auth/auth.model";
-import { useAuth } from "../../hooks/use-auth";
+} from "@context/file-api-context";
+import { GenerateIdError } from "@errors/file-errors";
+import { MultiPartBuilder } from "@utils/multi-part-builder";
+import { AuthMethodKey } from "@context/auth/auth.model";
+import { useAuth } from "@hooks/use-auth";
 
 const fetchFileId: Record<
   AuthMethodKey,

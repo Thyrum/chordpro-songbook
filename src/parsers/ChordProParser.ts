@@ -5,14 +5,14 @@ import {
   EmptyLine,
   CustomLine,
   TabLine,
-} from "../models/lines";
+} from "@models/lines";
 import {
   Key,
   ChordLyricsPair,
   ChordDiagram,
   Song,
   TimeSignature,
-} from "../models";
+} from "@models";
 import {
   Section,
   SectionType,
@@ -21,7 +21,7 @@ import {
   LyricsType,
   SimpleLyrics,
   Tabs,
-} from "../models/sections";
+} from "@models/sections";
 import { ParserWarning } from "./ParserWarning";
 import { Tag, TagType } from "./Tag";
 import { TagConstants } from "./TagConstants";

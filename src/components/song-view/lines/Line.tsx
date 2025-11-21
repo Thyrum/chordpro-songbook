@@ -1,6 +1,11 @@
 import { CommentLineView, EmptyLineView, LyricsLineView, TabLineView } from ".";
-import { CommentLine, Line, LyricsLine, TabLine } from "../../../models/lines";
-import { LineType } from "../../../models/lines/Line";
+import {
+  CommentLine,
+  Line,
+  LineType,
+  LyricsLine,
+  TabLine,
+} from "@models/lines";
 
 export function LineView({ line }: { line: Line }) {
   switch (line.lineType) {

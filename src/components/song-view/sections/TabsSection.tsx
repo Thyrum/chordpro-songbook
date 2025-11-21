@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
-import { TabsSection } from "../../../models/sections/TabsSection";
-import { LineView } from "../lines/Line";
+import { TabsSection } from "@models/sections/TabsSection";
 import { SectionHeader } from "../SectionHeader";
+import { LineView } from "../lines";
 
 export function TabsSectionView({ section }: { section: TabsSection }) {
   return (

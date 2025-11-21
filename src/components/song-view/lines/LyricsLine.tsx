@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { LyricsLine } from "../../../models/lines";
+import { LyricsLine } from "@models/lines";
 import { ChordLyricsPairView } from "../ChordLyricsPair";
 
 export function LyricsLineView({ line }: { line: LyricsLine }) {

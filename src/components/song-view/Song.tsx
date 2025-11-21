@@ -1,7 +1,7 @@
 import { Box, Paper, Typography, useTheme } from "@mui/material";
-import { Song } from "../../models";
+import { Song } from "@models";
 import { SectionView } from "./sections";
-import { ZoomFitContainer } from "../layout/zoom-fit-container";
+import { ZoomFitContainer } from "@components/layout/zoom-fit-container";
 
 export function SongView({ song }: { song: Song }) {
   const theme = useTheme();

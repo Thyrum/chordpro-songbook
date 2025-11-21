@@ -1,7 +1,7 @@
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
-import NavigationLayout from "./components/layout/navigation";
-import { FileApiProvider } from "./components/providers/file-api-provider";
-import { AuthProvider } from "./context/auth/auth-provider";
+import NavigationLayout from "@components/layout/navigation";
+import { FileApiProvider } from "@components/providers/file-api-provider";
+import { AuthProvider } from "@context/auth/auth-provider";
 import { HashRouter, Route, Routes } from "react-router";
 import { EditSongPage } from "./pages/edit-song-page";
 import { NoSongPage } from "./pages/no-song-page";

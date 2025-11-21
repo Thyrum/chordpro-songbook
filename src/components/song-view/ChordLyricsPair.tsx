@@ -1,5 +1,5 @@
 import { Box, useTheme } from "@mui/material";
-import { ChordLyricsPair } from "../../models";
+import { ChordLyricsPair } from "@models";
 import { ChordView } from "./Chord";
 
 export function ChordLyricsPairView({

@@ -1,9 +1,9 @@
 import { useNavigate, useParams } from "react-router";
-import SongInput from "../components/inputs/song-input";
-import { db } from "../database/database";
+import SongInput from "@components/inputs/song-input";
+import { db } from "@database/database";
 import { useEffect } from "react";
 import { Box, useTheme } from "@mui/material";
-import { DebouncedSongView } from "../components/debounced-song";
+import { DebouncedSongView } from "@components/debounced-song";
 
 export function EditSongPage() {
   const { songId } = useParams();

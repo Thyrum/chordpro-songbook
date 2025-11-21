@@ -1,10 +1,10 @@
 import { useLiveQuery } from "dexie-react-hooks";
-import { db } from "../../database/database";
+import { db } from "@database/database";
 import { useCallback } from "react";
-import SongContent from "../../database/entities/song-content";
-import SongMetadata from "../../database/entities/song-metadata";
+import SongContent from "@database/entities/song-content";
+import SongMetadata from "@database/entities/song-metadata";
 import { deleteSong } from "./util";
-import { ChordProParser } from "../../parsers";
+import { ChordProParser } from "@parsers";
 
 type Song = SongContent & SongMetadata;
 

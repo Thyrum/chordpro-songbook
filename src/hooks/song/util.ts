@@ -1,4 +1,4 @@
-import { db } from "../../database/database";
+import { db } from "@database/database";
 
 export async function deleteSong(id: number) {
   await db.songContent.delete(id);

@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect } from "react";
 import { useLocalStorage } from "usehooks-ts";
-import { FileApiContext } from "../context/file-api-context";
+import { FileApiContext } from "@context/file-api-context";
 import { useAuth } from "./use-auth";
 
 type useSyncedStorageOptions<T> = {
