@@ -6,6 +6,7 @@ export enum LineType {
   Empty = "empty",
   Custom = "custom",
   Tabs = "tabs",
+  Raw = "raw",
   Unknown = "unknown",
 }
 

@@ -5,6 +5,7 @@ import {
   EmptyLine,
   CustomLine,
   TabLine,
+  RawLine,
 } from "@models/lines";
 import {
   Key,
@@ -21,6 +22,7 @@ import {
   LyricsType,
   SimpleLyrics,
   Tabs,
+  ABC,
 } from "@models/sections";
 import { ParserWarning } from "./ParserWarning";
 import { Tag, TagType } from "./Tag";
@@ -112,6 +114,9 @@ export class ChordProParser {
       case SectionType.Lyrics:
         this.parseLyricsLine(line);
         break;
+      case SectionType.ABC:
+        this.parseRawLine(line);
+        break;
       default:
         break;
     }
@@ -129,6 +134,18 @@ export class ChordProParser {
         );
       }
       this.addLine(new TabLine(line)); // should it add the line even if the tab line is invalid?
+    } else {
+      this.addWarning("Internal error: wrong section type");
+    }
+  }
+
+  /**
+   * Parse the raw line
+   * @param the Raw line
+   */
+  private parseRawLine(line: string) {
+    if (this._currentSection instanceof ABC) {
+      this.addLine(new RawLine(line));
     } else {
       this.addWarning("Internal error: wrong section type");
     }
@@ -296,6 +313,9 @@ export class ChordProParser {
         return;
       case TagConstants.START_OF_TAB:
         this._currentSection = new Tabs(label);
+        return;
+      case TagConstants.START_OF_ABC:
+        this._currentSection = new ABC(label, attributes);
         return;
       default:
         break;

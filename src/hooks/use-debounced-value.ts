@@ -16,11 +16,11 @@ export default function useDebouncedValue<T>(
       setDebouncedValue(value);
       return;
     }
-    timeout.current = setTimeout(() => {
+    timeout.current = window.setTimeout(() => {
       setDebouncedValue(value);
     }, debounceMs);
     return () => {
-      clearTimeout(timeout.current);
+      window.clearTimeout(timeout.current);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);

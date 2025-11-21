@@ -9,6 +9,15 @@ export default defineConfig({
   define: {
     "process.browser": true,
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          abcjs: ["abcjs"],
+        },
+      },
+    },
+  },
   resolve: {
     alias: {
       "@components": path.resolve(__dirname, "src/components/"),

@@ -1,4 +1,4 @@
-import { Box, Paper, Typography, useTheme } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import { Song } from "@models";
 import { SectionView } from "./sections";
 import { ZoomFitContainer } from "@components/layout/zoom-fit-container";

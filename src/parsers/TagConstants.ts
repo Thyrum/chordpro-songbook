@@ -1,157 +1,174 @@
 export abstract class TagConstants {
-    //#region Constants
-    /**
-     * Album meta directive. See https://www.chordpro.org/chordpro/directives-album/
-     */
-    static readonly ALBUM = "album";
+  //#region Constants
+  /**
+   * Album meta directive. See https://www.chordpro.org/chordpro/directives-album/
+   */
+  static readonly ALBUM = "album";
 
-    /**
-     * Artist meta directive. See https://www.chordpro.org/chordpro/directives-arranger/
-     */
-    static readonly ARRANGER = "arranger";
+  /**
+   * Artist meta directive. See https://www.chordpro.org/chordpro/directives-arranger/
+   */
+  static readonly ARRANGER = "arranger";
 
-    /**
-     * Artist meta directive. See https://www.chordpro.org/chordpro/directives-artist/
-     */
-    static readonly ARTIST = "artist";
+  /**
+   * Artist meta directive. See https://www.chordpro.org/chordpro/directives-artist/
+   */
+  static readonly ARTIST = "artist";
 
-    /**
-     * Capo meta directive. See https://www.chordpro.org/chordpro/directives-capo/
-     */
-    static readonly CAPO = "capo";
+  /**
+   * Capo meta directive. See https://www.chordpro.org/chordpro/directives-capo/
+   */
+  static readonly CAPO = "capo";
 
-    /**
-     * Comment directive. See https://www.chordpro.org/chordpro/directives-comment/
-     */
-    static readonly COMMENT = "comment";
+  /**
+   * Comment directive. See https://www.chordpro.org/chordpro/directives-comment/
+   */
+  static readonly COMMENT = "comment";
 
-    /**
-     * Define directive. See https://www.chordpro.org/chordpro/directives-define/
-     */
-    static readonly DEFINE = "define";
+  /**
+   * Define directive. See https://www.chordpro.org/chordpro/directives-define/
+   */
+  static readonly DEFINE = "define";
 
-    /**
-     * Composer meta directive. See https://www.chordpro.org/chordpro/directives-composer/
-     */
-    static readonly COMPOSER = "composer";
+  /**
+   * Composer meta directive. See https://www.chordpro.org/chordpro/directives-composer/
+   */
+  static readonly COMPOSER = "composer";
 
-    /**
-     * Copyright meta directive. See https://www.chordpro.org/chordpro/directives-copyright/
-     */
-    static readonly COPYRIGHT = "copyright";
+  /**
+   * Copyright meta directive. See https://www.chordpro.org/chordpro/directives-copyright/
+   */
+  static readonly COPYRIGHT = "copyright";
 
-    /**
-     * Duration meta directive. See https://www.chordpro.org/chordpro/directives-duration/
-     */
-    static readonly DURATION = "duration";
-    /**
-     * End of chorus directive. See https://www.chordpro.org/chordpro/directives-env_bridge/
-     */
-    static readonly END_OF_BRIDGE = "end_of_bridge";
-    /**
-     * End of chorus directive. See https://www.chordpro.org/chordpro/directives-env_chorus/
-     */
-    static readonly END_OF_CHORUS = "end_of_chorus";
-    /**
-     * End of chorus directive. See https://www.chordpro.org/chordpro/directives-env_tab/
-     */
-    static readonly END_OF_TAB = "end_of_tab";
+  /**
+   * Duration meta directive. See https://www.chordpro.org/chordpro/directives-duration/
+   */
+  static readonly DURATION = "duration";
+  /**
+   * End of chorus directive. See https://www.chordpro.org/chordpro/directives-env_bridge/
+   */
+  static readonly END_OF_BRIDGE = "end_of_bridge";
+  /**
+   * End of chorus directive. See https://www.chordpro.org/chordpro/directives-env_chorus/
+   */
+  static readonly END_OF_CHORUS = "end_of_chorus";
+  /**
+   * End of chorus directive. See https://www.chordpro.org/chordpro/directives-env_tab/
+   */
+  static readonly END_OF_TAB = "end_of_tab";
 
-    /**
-     * End of verse directive. See https://www.chordpro.org/chordpro/directives-env_verse/
-     */
-    static readonly END_OF_VERSE = "end_of_verse";
+  /**
+   * End of verse directive. See https://www.chordpro.org/chordpro/directives-env_verse/
+   */
+  static readonly END_OF_VERSE = "end_of_verse";
 
-    /**
-     * Key meta directive. See https://www.chordpro.org/chordpro/directives-key/
-     */
-    static readonly KEY = "key";
+  /**
+   * End of abc directive. See https://www.chordpro.org/chordpro/directives-env_abc/
+   */
+  static readonly END_OF_ABC = "end_of_abc";
 
-    /**
-     * Lyricist meta directive. See https://www.chordpro.org/chordpro/directives-lyricist/
-     */
-    static readonly LYRICIST = "lyricist";
+  /**
+   * Key meta directive. See https://www.chordpro.org/chordpro/directives-key/
+   */
+  static readonly KEY = "key";
 
-    /**
-     * Start of bridge directive. See https://www.chordpro.org/chordpro/directives-env_bridge/
-     */
-    static readonly START_OF_BRIDGE = "start_of_bridge";
+  /**
+   * Lyricist meta directive. See https://www.chordpro.org/chordpro/directives-lyricist/
+   */
+  static readonly LYRICIST = "lyricist";
 
-    /**
-     * Start of chorus directive. See https://www.chordpro.org/chordpro/directives-env_chorus/
-     */
-    static readonly START_OF_CHORUS = "start_of_chorus";
+  /**
+   * Start of bridge directive. See https://www.chordpro.org/chordpro/directives-env_bridge/
+   */
+  static readonly START_OF_BRIDGE = "start_of_bridge";
 
-    /**
-     * Start of tab directive. See https://www.chordpro.org/chordpro/directives-env_verse/
-     */
-    static readonly START_OF_TAB = "start_of_tab";
+  /**
+   * Start of chorus directive. See https://www.chordpro.org/chordpro/directives-env_chorus/
+   */
+  static readonly START_OF_CHORUS = "start_of_chorus";
 
-    /**
-     * Start of verse directive. See https://www.chordpro.org/chordpro/directives-env_verse/
-     */
-    static readonly START_OF_VERSE = "start_of_verse";
+  /**
+   * Start of tab directive. See https://www.chordpro.org/chordpro/directives-env_verse/
+   */
+  static readonly START_OF_TAB = "start_of_tab";
 
-    /**
-     * Subtitle meta directive. See https://www.chordpro.org/chordpro/directives-subtitle/
-     */
-    static readonly SUBTITLE = "subtitle";
+  /**
+   * Start of verse directive. See https://www.chordpro.org/chordpro/directives-env_verse/
+   */
+  static readonly START_OF_VERSE = "start_of_verse";
 
-    /**
-     * Tempo meta directive. See https://www.chordpro.org/chordpro/directives-tempo/
-     */
-    static readonly TEMPO = "tempo";
+  /**
+   * Start of abc directive. See https://www.chordpro.org/chordpro/directives-env_abc/
+   */
+  static readonly START_OF_ABC = "start_of_abc";
 
-    /**
-     * Time meta directive. See https://www.chordpro.org/chordpro/directives-time/
-     */
-    static readonly TIME = "time";
+  /**
+   * Subtitle meta directive. See https://www.chordpro.org/chordpro/directives-subtitle/
+   */
+  static readonly SUBTITLE = "subtitle";
 
-    /**
-     * Title meta directive. See https://www.chordpro.org/chordpro/directives-title/
-     */
-    static readonly TITLE = "title";
+  /**
+   * Tempo meta directive. See https://www.chordpro.org/chordpro/directives-tempo/
+   */
+  static readonly TEMPO = "tempo";
 
-    /**
-     * Year meta directive. See https://www.chordpro.org/chordpro/directives-year/
-     */
-    static readonly YEAR = "year";
+  /**
+   * Time meta directive. See https://www.chordpro.org/chordpro/directives-time/
+   */
+  static readonly TIME = "time";
 
-    static readonly TITLE_SHORT = "t";
-    static readonly SUBTITLE_SHORT = "st";
-    static readonly COMMENT_SHORT = "c";
-    static readonly START_OF_CHORUS_SHORT = "soc";
-    static readonly END_OF_CHORUS_SHORT = "eoc";
-    static readonly START_OF_VERSE_SHORT = "sov";
-    static readonly END_OF_VERSE_SHORT = "eov";
-    static readonly START_OF_BRIDGE_SHORT = "sob";
-    static readonly END_OF_BRIDGE_SHORT = "eob";
-    static readonly START_OF_TAB_SHORT = "sot";
-    static readonly END_OF_TAB_SHORT = "eot";
+  /**
+   * Title meta directive. See https://www.chordpro.org/chordpro/directives-title/
+   */
+  static readonly TITLE = "title";
 
-    static readonly META_TAGS = [
-        TagConstants.ALBUM,
-        TagConstants.ARRANGER,
-        TagConstants.ARTIST,
-        TagConstants.CAPO,
-        TagConstants.COMPOSER,
-        TagConstants.COPYRIGHT,
-        TagConstants.DURATION,
-        TagConstants.KEY,
-        TagConstants.LYRICIST,
-        TagConstants.TEMPO,
-        TagConstants.TIME,
-        TagConstants.TITLE,
-        TagConstants.SUBTITLE,
-        TagConstants.YEAR,
-    ];
+  /**
+   * Year meta directive. See https://www.chordpro.org/chordpro/directives-year/
+   */
+  static readonly YEAR = "year";
 
-    static readonly START_BLOCK_TAGS = [
-        TagConstants.START_OF_BRIDGE,
-        TagConstants.START_OF_CHORUS,
-        TagConstants.START_OF_TAB,
-        TagConstants.START_OF_VERSE,
-    ];
+  static readonly TITLE_SHORT = "t";
+  static readonly SUBTITLE_SHORT = "st";
+  static readonly COMMENT_SHORT = "c";
+  static readonly START_OF_CHORUS_SHORT = "soc";
+  static readonly END_OF_CHORUS_SHORT = "eoc";
+  static readonly START_OF_VERSE_SHORT = "sov";
+  static readonly END_OF_VERSE_SHORT = "eov";
+  static readonly START_OF_BRIDGE_SHORT = "sob";
+  static readonly END_OF_BRIDGE_SHORT = "eob";
+  static readonly START_OF_TAB_SHORT = "sot";
+  static readonly END_OF_TAB_SHORT = "eot";
 
-    static readonly END_BLOCK_TAGS = [TagConstants.END_OF_BRIDGE, TagConstants.END_OF_CHORUS, TagConstants.END_OF_TAB, TagConstants.END_OF_VERSE];
+  static readonly META_TAGS = [
+    TagConstants.ALBUM,
+    TagConstants.ARRANGER,
+    TagConstants.ARTIST,
+    TagConstants.CAPO,
+    TagConstants.COMPOSER,
+    TagConstants.COPYRIGHT,
+    TagConstants.DURATION,
+    TagConstants.KEY,
+    TagConstants.LYRICIST,
+    TagConstants.TEMPO,
+    TagConstants.TIME,
+    TagConstants.TITLE,
+    TagConstants.SUBTITLE,
+    TagConstants.YEAR,
+  ];
+
+  static readonly START_BLOCK_TAGS = [
+    TagConstants.START_OF_BRIDGE,
+    TagConstants.START_OF_CHORUS,
+    TagConstants.START_OF_TAB,
+    TagConstants.START_OF_VERSE,
+    TagConstants.START_OF_ABC,
+  ];
+
+  static readonly END_BLOCK_TAGS = [
+    TagConstants.END_OF_BRIDGE,
+    TagConstants.END_OF_CHORUS,
+    TagConstants.END_OF_TAB,
+    TagConstants.END_OF_VERSE,
+    TagConstants.END_OF_ABC,
+  ];
 }

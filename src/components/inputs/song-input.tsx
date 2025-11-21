@@ -14,8 +14,6 @@ export default function SongInput({ songId }: { songId: number }) {
   // Only update local content state when song content from DB changes
   // This prevnets cursor jumps while typing
   useEffect(() => {
-    console.log("song content changed", song?.content);
-    console.log("local content", content);
     if (content !== song?.content) {
       setContentLocal(song?.content ?? "");
     }

@@ -11,7 +11,6 @@ export function ZoomFitContainer({
   const outerBox = useRef<HTMLDivElement>(null);
 
   const handleResize = useCallback(() => {
-    console.log("handleResize called");
     const outerWidth = outerBox.current?.clientWidth ?? 0;
     const innerWidth = innerBox.current?.scrollWidth ?? 0;
     if (innerWidth > outerWidth) {
