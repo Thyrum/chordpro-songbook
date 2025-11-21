@@ -205,7 +205,7 @@ export class ChordProParser {
         this.parseCustomMetadataTag(tag.longName, tag.value);
         break;
       case TagType.StartOfBlock:
-        this.parseStartOfBlockTag(tag.longName, tag.value);
+        this.parseStartOfBlockTag(tag.longName, tag.value, tag.attributes);
         break;
       case TagType.EndOfBlock:
         this.parseEndOfBlockTag(tag.longName);
@@ -258,7 +258,11 @@ export class ChordProParser {
    * @param name Tag name
    * @param value Tag value
    */
-  private parseStartOfBlockTag(longName: string, value: string | null) {
+  private parseStartOfBlockTag(
+    longName: string,
+    value: string | null,
+    attributes: Record<string, string>,
+  ) {
     // check previous section is closed
     if (this._currentSectionTagName !== null) {
       this.addWarning(
@@ -271,25 +275,27 @@ export class ChordProParser {
     this._currentSectionTagName = name;
     const blockType = TagConstants.START_BLOCK_TAGS.find((f) => f === longName);
 
+    const label = attributes["label"] ?? value;
+
     // custom section
     if (!blockType) {
-      this._currentSection = new Lyrics(LyricsType.Custom, name, value);
+      this._currentSection = new Lyrics(LyricsType.Custom, name, label);
       return;
     }
 
     // other section
     switch (blockType) {
       case TagConstants.START_OF_BRIDGE:
-        this._currentSection = new Lyrics(LyricsType.Bridge, name, value);
+        this._currentSection = new Lyrics(LyricsType.Bridge, name, label);
         return;
       case TagConstants.START_OF_CHORUS:
-        this._currentSection = new Lyrics(LyricsType.Chorus, name, value);
+        this._currentSection = new Lyrics(LyricsType.Chorus, name, label);
         return;
       case TagConstants.START_OF_VERSE:
-        this._currentSection = new Lyrics(LyricsType.Verse, name, value);
+        this._currentSection = new Lyrics(LyricsType.Verse, name, label);
         return;
       case TagConstants.START_OF_TAB:
-        this._currentSection = new Tabs(value);
+        this._currentSection = new Tabs(label);
         return;
       default:
         break;
