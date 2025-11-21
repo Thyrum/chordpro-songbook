@@ -4,10 +4,9 @@ import { SectionView } from "./sections";
 import { ZoomFitContainer } from "@components/layout/zoom-fit-container";
 
 export function SongView({ song }: { song: Song }) {
-  const theme = useTheme();
   return (
     <>
-      <Paper elevation={1} sx={{ padding: theme.spacing(1) }}>
+      <Paper elevation={1} sx={{ padding: 1 }}>
         <Typography variant="h3">{song.title ?? <i>Untitled</i>}</Typography>
         <Typography variant="subtitle1">{song.subtitle}</Typography>
         <Typography variant="subtitle2" color="textSecondary">
@@ -15,7 +14,7 @@ export function SongView({ song }: { song: Song }) {
         </Typography>
       </Paper>
       <ZoomFitContainer>
-        <Box sx={{ padding: theme.spacing(1) }}>
+        <Box sx={{ padding: 1 }}>
           {song.sections.map((section, index) => (
             <SectionView key={index} section={section} />
           ))}

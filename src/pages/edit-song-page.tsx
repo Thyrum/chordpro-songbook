@@ -2,13 +2,12 @@ import { useNavigate, useParams } from "react-router";
 import SongInput from "@components/inputs/song-input";
 import { db } from "@database/database";
 import { useEffect } from "react";
-import { Box, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
 import { DebouncedSongView } from "@components/debounced-song";
 
 export function EditSongPage() {
   const { songId } = useParams();
   const navigate = useNavigate();
-  const theme = useTheme();
 
   useEffect(() => {
     db.songMetadata.get(Number(songId)).then((metadata) => {
@@ -27,13 +26,13 @@ export function EditSongPage() {
       sx={{
         display: "flex",
         height: "100%",
-        gap: theme.spacing(1),
+        gap: 1,
       }}
     >
       <Box
         sx={{
           flex: `1`,
-          width: `calc(50% - ${theme.spacing(0.5)})`,
+          width: (theme) => `calc(50% - ${theme.spacing(0.5)})`,
         }}
       >
         <SongInput songId={Number(songId)} />
@@ -41,7 +40,7 @@ export function EditSongPage() {
       <Box
         sx={{
           flex: "1",
-          width: `calc(50% - ${theme.spacing(0.5)})`,
+          width: (theme) => `calc(50% - ${theme.spacing(0.5)})`,
         }}
       >
         <DebouncedSongView songId={Number(songId)} />

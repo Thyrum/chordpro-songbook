@@ -1,4 +1,4 @@
-import { Box, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
 import { ChordLyricsPair } from "@models";
 import { ChordView } from "./Chord";
 
@@ -9,13 +9,10 @@ export function ChordLyricsPairView({
   chordLyricsPair: ChordLyricsPair;
   showEmptyChord?: boolean;
 }) {
-  const theme = useTheme();
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       {chordLyricsPair.hasText() ? (
-        <Box sx={{ color: theme.palette.secondary.main }}>
-          {chordLyricsPair.text}
-        </Box>
+        <Box sx={{ color: "secondary.main" }}>{chordLyricsPair.text}</Box>
       ) : chordLyricsPair.chord ? (
         <ChordView chord={chordLyricsPair.chord} />
       ) : showEmptyChord ? (
