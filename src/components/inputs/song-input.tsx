@@ -1,21 +1,31 @@
 import { TextField } from "@mui/material";
 import { useSong } from "../../hooks/song/use-song";
 import { useEventListener } from "usehooks-ts";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export default function SongInput({ songId }: { songId: number }) {
   const [song, setSongContent, updateSongMetadata] = useSong(songId);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const initialized = useRef(false);
 
   useEventListener("beforeunload", updateSongMetadata);
 
   // Store separate local content to avoid cursor jumps in input fields
   const [content, setContentLocal] = useState(song?.content ?? "");
 
+  function isInFocus() {
+    return document.hasFocus() && inputRef.current === document.activeElement;
+  }
+
   // Only update local content state when song content from DB changes
-  // This prevnets cursor jumps while typing
+  // This prevents cursor jumps while typing
   useEffect(() => {
-    if (content !== song?.content) {
+    if (
+      song !== undefined &&
+      ((content !== song?.content && !isInFocus()) || !initialized.current)
+    ) {
       setContentLocal(song?.content ?? "");
+      initialized.current = true;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [song?.content]);
@@ -47,6 +57,7 @@ export default function SongInput({ songId }: { songId: number }) {
           },
         },
       }}
+      inputRef={inputRef}
       autoFocus
       onBlur={updateSongMetadata}
       fullWidth
