@@ -1,3 +1,4 @@
-.abcjs-highlight {
-  color: red;
+.abcjs-highlight,
+.abcjs-cursor {
+  color: var(--abcjs-highlight-color, red);
 }
