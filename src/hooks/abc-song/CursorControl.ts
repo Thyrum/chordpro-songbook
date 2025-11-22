@@ -2,14 +2,15 @@ import abcjs from "abcjs";
 
 export default class CursorControl implements abcjs.CursorControl {
   private cursor: SVGElement | null = null;
-  private root: HTMLElement;
+  private root: HTMLElement | null = null;
 
-  constructor(root: HTMLElement) {
+  constructor() {}
+
+  setRootElement(root: HTMLElement) {
     this.root = root;
   }
 
-  onStart() {
-    this.cursor?.remove();
+  init() {
     this.cursor = document.createElementNS(
       "http://www.w3.org/2000/svg",
       "line",
@@ -19,12 +20,12 @@ export default class CursorControl implements abcjs.CursorControl {
     this.cursor.setAttributeNS(null, "y1", "0");
     this.cursor.setAttributeNS(null, "x2", "0");
     this.cursor.setAttributeNS(null, "y2", "0");
-    this.root.querySelector("svg")?.appendChild(this.cursor);
+    this.root?.querySelector("svg")?.appendChild(this.cursor);
   }
 
   private removeSelection() {
-    const elements = this.root.querySelectorAll(".abcjs-highlight");
-    for (const element of elements) {
+    const elements = this.root?.querySelectorAll(".abcjs-highlight");
+    for (const element of elements ?? []) {
       element.classList.remove("abcjs-highlight");
     }
   }
