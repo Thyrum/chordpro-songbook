@@ -61,13 +61,10 @@ export function AbcController({
         onChange={(_event, value) => seek(value as number)}
         onChangeCommitted={(_event, value) => seek(value as number)}
       />
-      <Typography flexShrink={0}>
+      <Typography variant="body2" flexShrink={0}>
         {minutes}:{seconds.toString().padStart(2, "0")}
       </Typography>
-      <Typography
-        variant="caption"
-        flexShrink={0}
-      >{`(${tempo} bpm)`}</Typography>
+      <Typography variant="body2" flexShrink={0}>{`(${tempo} bpm)`}</Typography>
     </Paper>
   );
 }
