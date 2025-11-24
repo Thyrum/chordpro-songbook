@@ -94,9 +94,21 @@ export class ChordProParser {
    */
   private parseLine(line: string) {
     line = line.trim();
+    // chordpro comment
+    if (line.startsWith("#")) {
+      return;
+    }
+
     // empty
     if (!line) {
-      this.addLine(new EmptyLine());
+      // Ignore empty lines at the start of the song content
+      if (
+        this._song.sections.length > 0 ||
+        this._currentSection.lines.length > 0 ||
+        this._currentSectionTagName !== null
+      ) {
+        this.addLine(new EmptyLine());
+      }
       return;
     }
 
