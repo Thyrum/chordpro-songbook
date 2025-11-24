@@ -1,6 +1,6 @@
 import abcjs from "abcjs";
 
-export default class CursorControl implements abcjs.CursorControl {
+export default class CursorControl {
   private cursor: SVGElement | null = null;
   private root: HTMLElement | null = null;
 
@@ -23,9 +23,9 @@ export default class CursorControl implements abcjs.CursorControl {
     this.root?.querySelector("svg")?.appendChild(this.cursor);
   }
 
-  private removeSelection() {
-    const elements = this.root?.querySelectorAll(".abcjs-highlight");
-    for (const element of elements ?? []) {
+  private removeHighlight() {
+    const cursorElements = this.root?.querySelectorAll(".abcjs-highlight");
+    for (const element of cursorElements ?? []) {
       element.classList.remove("abcjs-highlight");
     }
   }
@@ -34,7 +34,7 @@ export default class CursorControl implements abcjs.CursorControl {
     // This is called every time a note or a rest is reached and contains the coordinates of it.
     if (ev.measureStart && ev.left === null) return; // this was the second part of a tie across a measure line. Just ignore it.
 
-    this.removeSelection();
+    this.removeHighlight();
 
     // Select the currently selected notes.
     for (const note of ev.elements ?? []) {
@@ -53,7 +53,14 @@ export default class CursorControl implements abcjs.CursorControl {
   }
 
   onFinished() {
-    this.removeSelection();
+    this.removeHighlight();
+
+    const selectedElements = this.root?.querySelectorAll(
+      ".abcjs-note_selected",
+    );
+    for (const element of selectedElements ?? []) {
+      element.classList.remove("abcjs-note_selected");
+    }
 
     if (this.cursor) {
       this.cursor.setAttribute("x1", "0");

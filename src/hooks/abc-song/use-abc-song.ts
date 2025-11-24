@@ -89,7 +89,7 @@ export function useAbcSong(code: string, visualParams?: abcjs.AbcVisualParams) {
       };
 
       const renderReturn = abcjs.renderAbc(rootElement.current!, abcCode, {
-        selectionColor: "var(--abcjs-selection-color, blue)",
+        selectionColor: "currentColor",
         ...visualParams,
         clickListener,
       });

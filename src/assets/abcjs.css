@@ -1,3 +1,7 @@
+.abcjs-note_selected {
+  color: var(--abcjs-selection-color, blue);
+}
+
 .abcjs-highlight,
 .abcjs-cursor {
   color: var(--abcjs-highlight-color, red);
