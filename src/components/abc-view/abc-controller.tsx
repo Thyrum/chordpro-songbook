@@ -2,7 +2,7 @@ import { Pause, PlayArrow, SkipPrevious } from "@mui/icons-material";
 import { Box, IconButton, Paper, Slider, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
-const CustomSlider = styled(Slider)(({ theme }) => ({
+const CustomSlider = styled(Slider)(() => ({
   "& .MuiSlider-thumb": {
     transition: "none",
   },
