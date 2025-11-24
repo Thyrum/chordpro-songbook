@@ -1,5 +1,15 @@
 import { Pause, PlayArrow, SkipPrevious } from "@mui/icons-material";
 import { Box, IconButton, Paper, Slider, Typography } from "@mui/material";
+import { styled } from "@mui/material/styles";
+
+const CustomSlider = styled(Slider)(({ theme }) => ({
+  "& .MuiSlider-thumb": {
+    transition: "none",
+  },
+  "& .MuiSlider-track": {
+    transition: "none",
+  },
+}));
 
 export function AbcController({
   play,
@@ -38,7 +48,7 @@ export function AbcController({
           </IconButton>
         )}
       </Box>
-      <Slider
+      <CustomSlider
         size="small"
         value={beatNumber}
         max={totalBeats}
