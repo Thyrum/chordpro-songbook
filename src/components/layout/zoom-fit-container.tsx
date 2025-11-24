@@ -15,6 +15,7 @@ export function ZoomFitContainer({
     const innerWidth = innerBox.current?.scrollWidth ?? 0;
     if (innerWidth > outerWidth) {
       innerBox.current!.style.transform = `scale(${outerWidth / innerWidth})`;
+      outerBox.current!.style.height = `${innerBox.current!.clientHeight * (outerWidth / innerWidth)}px`;
     } else {
       innerBox.current!.style.transform = `scale(1)`;
     }
