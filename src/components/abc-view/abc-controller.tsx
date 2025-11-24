@@ -39,7 +39,15 @@ export function AbcController({
   const seconds = currentTime % 60;
 
   return (
-    <Paper sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+    <Paper
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        gap: 1,
+        paddingLeft: 1,
+        paddingRight: 1,
+      }}
+    >
       <Box display="flex" alignItems="center">
         <IconButton size="small">
           <SkipPrevious onClick={reset} />

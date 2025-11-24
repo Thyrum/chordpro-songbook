@@ -11,5 +11,13 @@ export function ABCSectionView({ section }: { section: ABCSection }) {
     ? Number(section.attributes["scale"])
     : undefined;
 
-  return <AbcView abcCode={abcCode} visualParams={{ scale }} />;
+  return (
+    <AbcView
+      abcCode={abcCode}
+      visualParams={{
+        scale,
+        staffwidth: 450,
+      }}
+    />
+  );
 }
