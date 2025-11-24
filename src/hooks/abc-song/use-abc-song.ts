@@ -29,8 +29,7 @@ export function useAbcSong(code: string, visualParams?: abcjs.AbcVisualParams) {
 
   const reset = useCallback(async () => {
     synth.current.stop();
-    timingCallbacks.current?.pause();
-    timingCallbacks.current?.setProgress(0);
+    timingCallbacks.current?.stop();
     setPlaybackStatus((status) => ({
       ...status,
       beatNumber: 0,
@@ -43,12 +42,11 @@ export function useAbcSong(code: string, visualParams?: abcjs.AbcVisualParams) {
     if (!loadedSynth.current) {
       await synth.current.init({
         visualObj: tune.current!,
-        options: { onEnded: reset },
       });
       await synth.current.prime();
       loadedSynth.current = true;
     }
-  }, [reset]);
+  }, []);
 
   const [playbackStatus, setPlaybackStatus] = useState<PlaybackStatus>({
     beatNumber: 0,
@@ -61,12 +59,12 @@ export function useAbcSong(code: string, visualParams?: abcjs.AbcVisualParams) {
   const timingCallbacks = useRef<abcjs.TimingCallbacks>(null);
 
   const pause = useCallback(async () => {
-    synth.current.pause();
-    timingCallbacks.current?.pause();
     setPlaybackStatus((status) => ({
       ...status,
       isPlaying: false,
     }));
+    synth.current.pause();
+    timingCallbacks.current?.pause();
   }, []);
 
   const renderAbc = useCallback(
@@ -102,7 +100,10 @@ export function useAbcSong(code: string, visualParams?: abcjs.AbcVisualParams) {
         timingCallbacks.current = new abcjs.TimingCallbacks(tune.current, {
           eventCallback: (event) => {
             if (event) cursorControl.current?.onEvent(event);
-            else cursorControl.current?.onFinished();
+            else {
+              cursorControl.current?.onFinished();
+              reset();
+            }
             return undefined;
           },
           beatCallback: (beatNumber, totalBeats, totalTime) => {

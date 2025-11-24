@@ -39,6 +39,7 @@ export function AbcController({
         )}
       </Box>
       <Slider
+        size="small"
         value={beatNumber}
         max={totalBeats}
         onChange={(_event, value) => seek(value as number)}
