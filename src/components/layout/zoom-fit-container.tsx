@@ -18,6 +18,7 @@ export function ZoomFitContainer({
       outerBox.current!.style.height = `${innerBox.current!.clientHeight * (outerWidth / innerWidth)}px`;
     } else {
       innerBox.current!.style.transform = `scale(1)`;
+      outerBox.current!.style.height = `auto`;
     }
   }, [innerBox, outerBox]);
 
