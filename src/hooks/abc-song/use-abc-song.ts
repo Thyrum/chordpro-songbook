@@ -129,7 +129,7 @@ export function useAbcSong(code: string, visualParams?: abcjs.AbcVisualParams) {
         isPlaying: false,
       });
     },
-    [reset],
+    [initSynth, reset],
   );
 
   const updateRootRef = useCallback(
@@ -155,16 +155,19 @@ export function useAbcSong(code: string, visualParams?: abcjs.AbcVisualParams) {
     }));
     synth.current.start();
     timingCallbacks.current?.start();
-  }, []);
+  }, [initSynth]);
 
-  const seek = useCallback(async (beatNumber: number) => {
-    await initSynth();
-    synth.current.seek(beatNumber / beatSubdivisions, "beats");
-    timingCallbacks.current?.setProgress(
-      beatNumber / beatSubdivisions,
-      "beats",
-    );
-  }, []);
+  const seek = useCallback(
+    async (beatNumber: number) => {
+      await initSynth();
+      synth.current.seek(beatNumber / beatSubdivisions, "beats");
+      timingCallbacks.current?.setProgress(
+        beatNumber / beatSubdivisions,
+        "beats",
+      );
+    },
+    [initSynth],
+  );
 
   useEffect(() => {
     renderAbc(code, visualParams);

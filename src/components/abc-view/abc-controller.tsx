@@ -32,18 +32,24 @@ export function AbcController({
   tempo: number;
   isPlaying: boolean;
 }) {
+  const currentTime = Math.floor(
+    ((beatNumber / totalBeats) * totalTime) / 1000,
+  );
+  const minutes = Math.floor(currentTime / 60);
+  const seconds = currentTime % 60;
+
   return (
     <Paper sx={{ display: "flex", alignItems: "center", gap: 1 }}>
       <Box display="flex" alignItems="center">
-        <IconButton>
+        <IconButton size="small">
           <SkipPrevious onClick={reset} />
         </IconButton>
         {isPlaying ? (
-          <IconButton onClick={pause}>
+          <IconButton size="small" onClick={pause}>
             <Pause />
           </IconButton>
         ) : (
-          <IconButton onClick={play}>
+          <IconButton size="small" onClick={play}>
             <PlayArrow />
           </IconButton>
         )}
@@ -55,8 +61,13 @@ export function AbcController({
         onChange={(_event, value) => seek(value as number)}
         onChangeCommitted={(_event, value) => seek(value as number)}
       />
-      <Typography flexShrink={0}>{totalTime}</Typography>
-      <Typography flexShrink={0}>{`${tempo} bpm`}</Typography>
+      <Typography flexShrink={0}>
+        {minutes}:{seconds.toString().padStart(2, "0")}
+      </Typography>
+      <Typography
+        variant="caption"
+        flexShrink={0}
+      >{`(${tempo} bpm)`}</Typography>
     </Paper>
   );
 }
