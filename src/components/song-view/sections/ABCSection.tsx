@@ -1,6 +1,8 @@
 import { RawLine } from "@/models/lines";
 import { ABCSection } from "@/models/sections/ABCSection";
 import { AbcView } from "@components/abc-view";
+import { Box } from "@mui/material";
+import { SectionHeader } from "../SectionHeader";
 
 export function ABCSectionView({ section }: { section: ABCSection }) {
   const abcCode = section.lines
@@ -12,12 +14,18 @@ export function ABCSectionView({ section }: { section: ABCSection }) {
     : undefined;
 
   return (
-    <AbcView
-      abcCode={abcCode}
-      visualParams={{
-        scale,
-        staffwidth: 450,
-      }}
-    />
+    <Box>
+      {section.label && <SectionHeader>{section.label}</SectionHeader>}
+      <AbcView
+        abcCode={abcCode}
+        visualParams={{
+          scale,
+          staffwidth: 450,
+          paddingleft: 0,
+          paddingright: 0,
+          paddingtop: 0,
+        }}
+      />
+    </Box>
   );
 }

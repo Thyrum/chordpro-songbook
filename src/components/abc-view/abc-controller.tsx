@@ -44,8 +44,9 @@ export function AbcController({
         display: "flex",
         alignItems: "center",
         gap: 1,
-        paddingLeft: 1,
         paddingRight: 1,
+        marginLeft: -1,
+        marginRight: -1,
       }}
     >
       <Box display="flex" alignItems="center">
