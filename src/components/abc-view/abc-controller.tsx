@@ -68,7 +68,6 @@ export function AbcController({
         value={beatNumber}
         max={totalBeats}
         onChange={(_event, value) => seek(value as number)}
-        onChangeCommitted={(_event, value) => seek(value as number)}
       />
       <Typography variant="body2" flexShrink={0}>
         {minutes}:{seconds.toString().padStart(2, "0")}
