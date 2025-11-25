@@ -26,7 +26,11 @@ export function DebouncedSongView({
 
   const parsedSong = useMemo(() => {
     const parser = new ChordProParser();
-    return parser.parse(debouncedContent ?? "");
+    const result = parser.parse(debouncedContent ?? "");
+    for (const warning of parser.warnings) {
+      console.warn("ChordPro Parser Warning:", warning.toString());
+    }
+    return result;
   }, [debouncedContent]);
 
   return <SongView song={parsedSong} />;
